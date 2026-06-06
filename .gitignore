@@ -1,0 +1,95 @@
+# Bagimliliklar
+node_modules/
+.pnp
+.pnp.js
+.yarn/
+
+# Build ciktilari
+dist/
+dist-electron/
+dist-ssr/
+build/
+out/
+*.local
+
+# Capacitor native projeler (ilk olusturuldugunda commit edilir, sonra IDE dosyalari ignore)
+android/.gradle/
+android/.idea/
+android/local.properties
+android/app/build/
+android/app/release/
+android/build/
+android/captures/
+android/.cxx/
+android/app/src/main/assets/public/
+android/app/src/main/assets/capacitor.config.json
+android/app/src/main/assets/capacitor.plugins.json
+android/app/src/main/res/xml/config.xml
+android/keystore/
+*.keystore
+*.jks
+key.properties
+
+ios/App/Pods/
+ios/App/build/
+ios/App/output/
+ios/App/App/public/
+ios/App/App/capacitor.config.json
+ios/App/App/config.xml
+ios/.DS_Store
+ios/DerivedData/
+ios/App/App.xcworkspace/xcuserdata/
+ios/App/App.xcodeproj/xcuserdata/
+*.mobileprovision
+*.p12
+*.p8
+*.cer
+
+# Electron build cache
+.electron-cache/
+.electron-builder-cache/
+
+# Editor / IDE
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Loglar
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment / secrets
+.env
+.env.local
+.env.*.local
+*.pem
+secrets/
+
+# Test ciktilari
+coverage/
+.nyc_output/
+
+# Gecici dosyalar
+*.tmp
+*.temp
+.cache/
+
+# OS
+$RECYCLE.BIN/
+ehthumbs.db
+
+# Auto-generated PWA dosyalari
+public/sw.js
+public/workbox-*.js
+public/registerSW.js

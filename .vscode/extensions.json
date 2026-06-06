@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "antfu.vite",
+    "ionic.ionic",
+    "bradlc.vscode-tailwindcss",
+    "github.vscode-github-actions"
+  ]
+}

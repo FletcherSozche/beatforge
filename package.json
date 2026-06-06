@@ -1,0 +1,153 @@
+{
+  "name": "beatforge",
+  "version": "0.1.0",
+  "description": "BeatForge - Drum n Bass, Dubstep ve daha fazlasi icin sezgisel muzik uretim stüdyosu",
+  "author": {
+    "name": "BeatForge Studio",
+    "email": "hello@beatforge.app",
+    "url": "https://beatforge.app"
+  },
+  "license": "Proprietary",
+  "private": true,
+  "type": "module",
+  "main": "electron/main.cjs",
+  "homepage": "./",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --host",
+    "serve": "vite preview --host --port 4173",
+    "cap:sync": "npm run build && cap sync",
+    "cap:open:android": "cap open android",
+    "cap:open:ios": "cap open ios",
+    "android:add": "cap add android",
+    "android:dev": "npm run build && cap sync android && cap run android",
+    "android:build": "npm run build && cap sync android && cap open android",
+    "ios:add": "cap add ios",
+    "ios:dev": "npm run build && cap sync ios && cap run ios",
+    "ios:build": "npm run build && cap sync ios && cap open ios",
+    "electron:dev": "concurrently -k \"npm run dev\" \"wait-on http://localhost:5173 && cross-env ELECTRON_DEV=1 electron .\"",
+    "electron:build": "npm run build && electron-builder",
+    "build:win": "npm run build && electron-builder --win --x64",
+    "build:mac": "npm run build && electron-builder --mac --universal",
+    "build:linux": "npm run build && electron-builder --linux AppImage deb snap",
+    "build:all-desktop": "npm run build && electron-builder -mwl",
+    "icons:generate": "node scripts/generate-icons.js",
+    "resources:generate": "cordova-res --skip-config --copy",
+    "clean": "rimraf dist dist-electron android/app/build ios/App/build"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.1.2",
+    "@capacitor/app": "^6.0.1",
+    "@capacitor/core": "^6.1.2",
+    "@capacitor/filesystem": "^6.0.1",
+    "@capacitor/haptics": "^6.0.1",
+    "@capacitor/ios": "^6.1.2",
+    "@capacitor/preferences": "^6.0.2",
+    "@capacitor/share": "^6.0.2",
+    "@capacitor/splash-screen": "^6.0.2",
+    "@capacitor/status-bar": "^6.0.1",
+    "tone": "^15.0.4"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.1.2",
+    "concurrently": "^8.2.2",
+    "cordova-res": "^0.15.4",
+    "cross-env": "^7.0.3",
+    "electron": "^31.3.1",
+    "electron-builder": "^25.0.5",
+    "rimraf": "^6.0.1",
+    "sharp": "^0.33.5",
+    "vite": "^5.4.6",
+    "vite-plugin-pwa": "^0.20.5",
+    "wait-on": "^8.0.0"
+  },
+  "build": {
+    "appId": "app.beatforge.studio",
+    "productName": "BeatForge",
+    "copyright": "Copyright (c) 2026 BeatForge Studio",
+    "directories": {
+      "output": "dist-electron",
+      "buildResources": "resources"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "asar": true,
+    "win": {
+      "target": [
+        { "target": "nsis", "arch": ["x64", "arm64"] },
+        { "target": "portable", "arch": ["x64"] },
+        { "target": "appx", "arch": ["x64", "arm64"] }
+      ],
+      "icon": "resources/icon.ico",
+      "publisherName": "BeatForge Studio"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "BeatForge"
+    },
+    "appx": {
+      "identityName": "BeatForgeStudio.BeatForge",
+      "publisher": "CN=BeatForge Studio",
+      "publisherDisplayName": "BeatForge Studio",
+      "applicationId": "BeatForge",
+      "backgroundColor": "#0a0e1a"
+    },
+    "mac": {
+      "target": [
+        { "target": "dmg", "arch": ["x64", "arm64"] },
+        { "target": "mas", "arch": ["universal"] },
+        { "target": "zip", "arch": ["universal"] }
+      ],
+      "icon": "resources/icon.icns",
+      "category": "public.app-category.music",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "resources/entitlements.mac.plist",
+      "entitlementsInherit": "resources/entitlements.mac.plist"
+    },
+    "mas": {
+      "entitlements": "resources/entitlements.mas.plist",
+      "entitlementsInherit": "resources/entitlements.mas.inherit.plist",
+      "provisioningProfile": "resources/embedded.provisionprofile"
+    },
+    "dmg": {
+      "background": "resources/dmg-background.png",
+      "iconSize": 120,
+      "window": { "width": 600, "height": 400 }
+    },
+    "linux": {
+      "target": [
+        { "target": "AppImage", "arch": ["x64", "arm64"] },
+        { "target": "deb", "arch": ["x64", "arm64"] },
+        { "target": "snap", "arch": ["x64"] },
+        { "target": "rpm", "arch": ["x64"] },
+        { "target": "flatpak", "arch": ["x64"] }
+      ],
+      "icon": "resources/icons",
+      "category": "AudioVideo;Audio;Music",
+      "synopsis": "Sezgisel muzik uretim stüdyosu",
+      "description": "Drum n Bass, Dubstep ve daha fazlasi icin tasarlanmis modern beat maker."
+    },
+    "snap": {
+      "grade": "stable",
+      "confinement": "strict",
+      "plugs": ["default", "audio-playback", "audio-record", "removable-media", "home"]
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "beatforge",
+        "repo": "beatforge-app",
+        "releaseType": "draft"
+      }
+    ]
+  }
+}
