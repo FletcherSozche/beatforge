@@ -33,6 +33,7 @@
     "build:linux": "npm run build && electron-builder --linux AppImage deb snap",
     "build:all-desktop": "npm run build && electron-builder -mwl",
     "icons:generate": "node scripts/generate-icons.js",
+    "shortcut:create": "node scripts/create-desktop-shortcut.js",
     "resources:generate": "cordova-res --skip-config --copy",
     "clean": "rimraf dist dist-electron android/app/build ios/App/build"
   },
