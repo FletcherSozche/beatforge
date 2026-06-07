@@ -64,7 +64,14 @@ export function buildSequencerUI(rootEl, onCellChange) {
       cell.dataset.step = String(i);
 
       const stepData = pattern.tracks[track.id]?.steps[i];
-      if (stepData?.on) cell.classList.add('active');
+      if (stepData?.on) {
+        cell.classList.add('active');
+        const vel = stepData.vel || 0.85;
+        const velBar = document.createElement('div');
+        velBar.className = 'vel-bar';
+        velBar.style.height = `${Math.round(vel * 100)}%`;
+        cell.appendChild(velBar);
+      }
       if (activeVocalTrack && track.id === activeVocalTrack) cell.classList.add('vocal-target');
 
       cells.appendChild(cell);
@@ -95,6 +102,8 @@ function bindCellInteractions(rootEl, onCellChange) {
   let mouseDown = false;
   let paintMode = null;
   let dragStart = null;
+  let velDrag = null;
+  let lastX = 0, lastY = 0;
 
   const getCellFromEvent = (e) => {
     const target = e.target.closest('.seq-cell');
@@ -107,8 +116,15 @@ function bindCellInteractions(rootEl, onCellChange) {
   };
 
   rootEl.addEventListener('mousedown', (e) => {
+    if (e.button === 2) return;
     const c = getCellFromEvent(e);
     if (!c) return;
+
+    if (e.altKey && c.el.classList.contains('active')) {
+      velDrag = { trackId: c.trackId, step: c.step, startY: e.clientY, startVel: getVel(c.trackId, c.step) };
+      e.preventDefault();
+      return;
+    }
 
     if (e.shiftKey && selectionStart) {
       selectionEnd = { trackId: c.trackId, step: c.step };
@@ -125,9 +141,16 @@ function bindCellInteractions(rootEl, onCellChange) {
     selectionEnd = { trackId: c.trackId, step: c.step };
     updateSelection();
     paintCell(c.trackId, c.step, paintMode, onCellChange);
+    lastX = e.clientX; lastY = e.clientY;
   });
 
   rootEl.addEventListener('mousemove', (e) => {
+    if (velDrag) {
+      const deltaY = velDrag.startY - e.clientY;
+      const newVel = Math.max(0.05, Math.min(1, velDrag.startVel + deltaY / 80));
+      setVel(velDrag.trackId, velDrag.step, newVel);
+      return;
+    }
     if (!mouseDown) return;
     const c = getCellFromEvent(e);
     if (!c) return;
@@ -144,6 +167,7 @@ function bindCellInteractions(rootEl, onCellChange) {
   document.addEventListener('mouseup', () => {
     mouseDown = false;
     paintMode = null;
+    velDrag = null;
   });
 
   rootEl.addEventListener('contextmenu', (e) => {
@@ -152,6 +176,27 @@ function bindCellInteractions(rootEl, onCellChange) {
     if (!c) return;
     showContextMenu(e.clientX, e.clientY, c, onCellChange, rootEl);
   });
+}
+
+function getVel(trackId, stepIdx) {
+  const pattern = getPattern();
+  return pattern.tracks[trackId]?.steps[stepIdx]?.vel ?? 0.85;
+}
+
+function setVel(trackId, stepIdx, vel) {
+  setStep(trackId, stepIdx, { vel });
+  const cell = document.querySelector(`.seq-cell[data-track-id="${trackId}"][data-step="${stepIdx}"]`);
+  if (!cell) return;
+  const bar = cell.querySelector('.vel-bar');
+  if (bar) {
+    bar.style.height = `${Math.round(vel * 100)}%`;
+  } else if (cell.classList.contains('active')) {
+    const newBar = document.createElement('div');
+    newBar.className = 'vel-bar';
+    newBar.style.height = `${Math.round(vel * 100)}%`;
+    cell.appendChild(newBar);
+  }
+  cell.style.filter = `brightness(${0.5 + vel * 0.7})`;
 }
 
 function paintCell(trackId, stepIdx, mode, onCellChange) {
@@ -349,9 +394,24 @@ export function refreshActiveCells() {
   document.querySelectorAll('.seq-cell').forEach((cell) => {
     const tid = cell.dataset.trackId;
     const step = parseInt(cell.dataset.step, 10);
-    const on = pattern.tracks[tid]?.steps[step]?.on;
-    cell.classList.toggle('active', !!on);
+    const stepData = pattern.tracks[tid]?.steps[step];
+    const on = !!stepData?.on;
+    cell.classList.toggle('active', on);
     cell.classList.toggle('vocal-target', activeVocalTrack === tid);
+    const existingBar = cell.querySelector('.vel-bar');
+    if (on && stepData) {
+      const vel = stepData.vel || 0.85;
+      if (existingBar) {
+        existingBar.style.height = `${Math.round(vel * 100)}%`;
+      } else {
+        const bar = document.createElement('div');
+        bar.className = 'vel-bar';
+        bar.style.height = `${Math.round(vel * 100)}%`;
+        cell.appendChild(bar);
+      }
+    } else if (existingBar) {
+      existingBar.remove();
+    }
   });
 }
 
