@@ -7,6 +7,7 @@ const isMac = process.platform === 'darwin';
 const isWin = process.platform === 'win32';
 
 let mainWindow = null;
+const fileWatchers = new Map();
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -183,6 +184,51 @@ ipcMain.handle('dialog:saveAudio', async (_, { buffer, defaultName }) => {
     return { ok: true, path: result.filePath };
   }
   return { ok: false };
+});
+
+ipcMain.handle('fs:readFile', async (_, filePath) => {
+  try {
+    if (!fs.existsSync(filePath)) return null;
+    return fs.readFileSync(filePath, 'utf-8');
+  } catch (err) {
+    console.error('readFile error:', err.message);
+    return null;
+  }
+});
+
+ipcMain.handle('fs:getFileMeta', async (_, filePath) => {
+  try {
+    if (!fs.existsSync(filePath)) return null;
+    const stat = fs.statSync(filePath);
+    return { mtime: stat.mtimeMs, size: stat.size };
+  } catch (err) {
+    return null;
+  }
+});
+
+ipcMain.handle('fs:watchFile', async (_, filePath) => {
+  if (fileWatchers.has(filePath)) {
+    fileWatchers.get(filePath).close();
+  }
+  if (!fs.existsSync(filePath)) return null;
+  const watcher = fs.watch(filePath, (eventType) => {
+    if (eventType === 'change') {
+      try {
+        const content = fs.readFileSync(filePath, 'utf-8');
+        mainWindow?.webContents.send('fs:fileChanged', { filePath, content });
+      } catch {}
+    }
+  });
+  fileWatchers.set(filePath, watcher);
+  return true;
+});
+
+ipcMain.handle('fs:unwatchFile', async (_, filePath) => {
+  if (fileWatchers.has(filePath)) {
+    fileWatchers.get(filePath).close();
+    fileWatchers.delete(filePath);
+  }
+  return true;
 });
 
 app.whenReady().then(() => {

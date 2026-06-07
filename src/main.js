@@ -27,6 +27,7 @@ import { pushHistory, debouncedHistory, flushHistory, undo, redo, canUndo, canRe
 import { startAutosave, stopAutosave, setAutosaveEnabled } from './audio/autosave.js';
 import { snapshotA, snapshotB, toggleAB, getActiveBuffer, hasA, hasB } from './audio/ab-compare.js';
 import { duplicateBarAllTracks, duplicateBar } from './audio/bar-ops.js';
+import { setupProjectWatcher } from './audio/watcher.js';
 
 const state = {
   ready: false,
@@ -534,6 +535,30 @@ async function init() {
     () => state.projectName,
     () => ({ bpm: state.bpm, bars: state.bars, pattern: getPattern() })
   );
+
+  if (window.beatforge?.isDesktop) {
+    const watchPath = 'D:\\AI\\OpenCode\\beatforge\\projects\\current.bfp';
+    setupProjectWatcher(watchPath, (data) => {
+      if (!data?.project) return;
+      const proj = data.project;
+      if (proj.bpm) {
+        state.bpm = proj.bpm;
+        els.bpmInput.value = String(proj.bpm);
+        if (state.ready) setBpm(proj.bpm);
+      }
+      if (proj.bars) {
+        state.bars = proj.bars;
+        document.querySelectorAll('.seg-btn[data-bars]').forEach((b) => {
+          b.classList.toggle('active', parseInt(b.dataset.bars, 10) === state.bars);
+        });
+      }
+      if (proj.pattern) setPattern(proj.pattern);
+      refreshActiveCells();
+      buildSequencerUI(els.sequencer);
+      toast('Bot senkron: Proje guncellendi', 'info');
+    });
+    console.log('[BeatForge] Bot sync izleyicisi aktif:', watchPath);
+  }
 
   setTimeout(() => {
     els.splash?.remove();

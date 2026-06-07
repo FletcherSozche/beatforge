@@ -6,6 +6,15 @@ contextBridge.exposeInMainWorld('beatforge', {
   isDesktop: true,
   saveProject: (data) => ipcRenderer.invoke('dialog:saveProject', data),
   saveAudio: (payload) => ipcRenderer.invoke('dialog:saveAudio', payload),
+  readFile: (filePath) => ipcRenderer.invoke('fs:readFile', filePath),
+  getFileMeta: (filePath) => ipcRenderer.invoke('fs:getFileMeta', filePath),
+  watchFile: (filePath) => ipcRenderer.invoke('fs:watchFile', filePath),
+  unwatchFile: (filePath) => ipcRenderer.invoke('fs:unwatchFile', filePath),
+  onFileChanged: (handler) => {
+    const wrapped = (_, payload) => handler(payload);
+    ipcRenderer.on('fs:fileChanged', wrapped);
+    return () => ipcRenderer.removeListener('fs:fileChanged', wrapped);
+  },
   onMenu: (channel, handler) => {
     const validChannels = [
       'app:new-project',
