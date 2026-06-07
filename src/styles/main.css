@@ -1743,3 +1743,22 @@ input { outline: none; }
 .samples-item-actions { display: flex; gap: 4px; flex-shrink: 0; }
 .samples-item-actions .btn-ghost { padding: 4px 10px; font-size: 10px; height: auto; min-width: unset; }
 .samples-item-actions .btn-ghost span { display: inline; }
+
+.btn-metronome {
+  opacity: 0.5;
+  transition: opacity 0.15s, box-shadow 0.15s;
+  position: relative;
+}
+.btn-metronome.active {
+  opacity: 1;
+  box-shadow: 0 0 12px rgba(107, 207, 127, 0.6);
+}
+.btn-metronome.active svg { fill: var(--accent-green, #6bcf7f); }
+
+.metronome-flash {
+  animation: metronome-flash 0.08s ease-out;
+}
+@keyframes metronome-flash {
+  0% { box-shadow: 0 0 20px rgba(107, 207, 127, 0.9); }
+  100% { box-shadow: 0 0 0 transparent; }
+}

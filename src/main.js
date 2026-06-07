@@ -36,6 +36,7 @@ import { loadDemoProject, isDemoLoading } from './audio/demo-loader.js';
 import { showHelpModal } from './ui/help-modal.js';
 import { showOnboarding } from './ui/onboarding.js';
 import { exportPatternToMidi, downloadMidi } from './audio/midi-export.js';
+import { isMetronomeEnabled, setMetronomeEnabled, startMetronome, stopMetronome, startCountIn } from './audio/metronome.js';
 
 const state = {
   ready: false,
@@ -93,6 +94,7 @@ function bindElements() {
   els.swingSlider = $('swing-slider');
   els.swingValue = $('swing-value');
   els.tapTempo = $('tap-tempo');
+  els.btnMetronome = $('btn-metronome');
 }
 
 async function ensureAudioStarted() {
@@ -257,6 +259,7 @@ function togglePlay() {
     state.playing = true;
     els.btnPlay.classList.add('playing');
     els.navPlay?.classList.add('playing');
+    if (isMetronomeEnabled()) startMetronome();
   }
 }
 
@@ -269,6 +272,7 @@ function handleStop() {
   els.navPlay?.classList.remove('playing');
   clearPlayingHighlight();
   els.position.textContent = '1.1.1';
+  stopMetronome();
 }
 
 async function handleRecord() {
@@ -323,6 +327,13 @@ function handleTapTempo() {
   els.tapTempo.classList.add('flash');
   clearTimeout(tapTimer);
   tapTimer = setTimeout(() => els.tapTempo.classList.remove('flash'), 200);
+}
+
+function toggleMetronome() {
+  const newVal = !isMetronomeEnabled();
+  setMetronomeEnabled(newVal);
+  if (els.btnMetronome) els.btnMetronome.classList.toggle('active', newVal);
+  toast(newVal ? 'Metronome acik' : 'Metronome kapali', 'info');
 }
 
 function openModal(modal) { modal.classList.add('open'); }
@@ -387,6 +398,7 @@ function bindEvents() {
     });
   }
   if (els.tapTempo) els.tapTempo.addEventListener('click', handleTapTempo);
+  if (els.btnMetronome) els.btnMetronome.addEventListener('click', toggleMetronome);
 
   if (els.btnCopy) {
     els.btnCopy.addEventListener('click', () => {
