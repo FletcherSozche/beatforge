@@ -480,7 +480,10 @@ function bindEvents() {
     else if ((e.ctrlKey || e.metaKey) && e.code === 'KeyS') { e.preventDefault(); doSave(); }
     else if ((e.ctrlKey || e.metaKey) && e.code === 'KeyO') { e.preventDefault(); doOpen(); }
     else if ((e.ctrlKey || e.metaKey) && e.code === 'KeyN') { e.preventDefault(); newProject(); }
-    else if ((e.ctrlKey || e.metaKey) && e.code === 'KeyE') { e.preventDefault(); doExport(); }
+    else     if ((e.ctrlKey || e.metaKey) && e.code === 'KeyE') { e.preventDefault(); doExport(); }
+    if ((e.ctrlKey || e.metaKey) && e.code === 'KeyD') { e.preventDefault(); handleDuplicateBar(); }
+    if (e.code === 'F1' || (e.shiftKey && e.code === 'Slash')) { e.preventDefault(); showHelpModal(); }
+    if (e.code === 'Slash' && !e.shiftKey && !e.ctrlKey && !e.metaKey) { e.preventDefault(); els.bpmInput?.focus(); els.bpmInput?.select(); }
   });
 
   if (window.beatforge?.onMenu) {
