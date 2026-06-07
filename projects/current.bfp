@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "name": "Bot Proje",
+  "project": {
+    "bpm": 174,
+    "bars": 1,
+    "steps": 16,
+    "pattern": {
+      "bars": 1,
+      "steps": 16,
+      "tracks": {}
+    },
+    "mutes": {},
+    "effects": {
+      "reverb": { "on": false, "wet": 0.3, "decay": 2.5 },
+      "delay": { "on": false, "wet": 0.25, "feedback": 0.4, "time": "8n" },
+      "distortion": { "on": false, "wet": 0.5, "drive": 0.4 },
+      "filter": { "on": false, "cutoff": 1200, "q": 1 },
+      "phaser": { "on": false, "wet": 0.5, "rate": 0.5 },
+      "compressor": { "on": true, "threshold": -18, "ratio": 4 }
+    },
+    "master": { "volume": -6 },
+    "vocals": {}
+  },
+  "savedAt": "2026-06-07T00:00:00.000Z"
+}

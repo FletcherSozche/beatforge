@@ -715,7 +715,7 @@ async function init() {
   );
 
   if (window.beatforge?.isDesktop) {
-    const watchPath = 'D:\\AI\\OpenCode\\beatforge\\projects\\current.bfp';
+    const watchPath = './projects/current.bfp';
     setupProjectWatcher(watchPath, (data) => {
       if (!data?.project) return;
       const proj = data.project;
