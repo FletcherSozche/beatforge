@@ -10,7 +10,7 @@ import {
   getPattern, setPattern, setBars, startSequencer, stopSequencer,
   clearPattern, randomize, ensureTrack, totalSteps, resetStepCounter
 } from './audio/sequencer.js';
-import { PRESETS, applyPreset } from './audio/presets.js';
+import { PRESETS, applyPreset, getPresetById } from './audio/presets.js';
 import {
   saveProject, saveProjectWithVocals, loadProject, saveSettings, loadSettings,
   exportProjectFile, importProjectFile, exportAudioBlob, restoreVocals
@@ -114,8 +114,18 @@ async function ensureAudioStarted() {
 }
 
 function bootstrapInitialPattern() {
-  setPattern({ bars: state.bars, steps: 16, tracks: {} });
-  ['kick', 'snare', 'clap', 'hat', 'ohat', 'crash', 'sub', 'wobble', 'bass', 'lead'].forEach(ensureTrack);
+  const prog = getPresetById('progressive');
+  if (prog) {
+    state.bpm = prog.bpm;
+    state.bars = prog.bars || 1;
+    ['kick', 'snare', 'clap', 'hat', 'ohat', 'crash', 'sub', 'wobble', 'bass', 'lead', 'pad', 'arp'].forEach(ensureTrack);
+    const pat = applyPreset(prog, getPattern(), totalSteps());
+    setPattern(pat);
+    state.projectName = 'Progressive';
+  } else {
+    setPattern({ bars: state.bars, steps: 16, tracks: {} });
+    ['kick', 'snare', 'clap', 'hat', 'ohat', 'crash', 'sub', 'wobble', 'bass', 'lead'].forEach(ensureTrack);
+  }
 }
 
 function rebuildAllUI() {
@@ -174,6 +184,53 @@ function handleTemplateApplied({ bpm, name }) {
   refreshActiveCells();
   buildSequencerUI(els.sequencer);
   pushHistory(getPattern());
+}
+
+let morphState = null;
+function startMorph(toPreset) {
+  const curPat = getPattern();
+  const totalLen = totalSteps();
+  if (!curPat.tracks || Object.keys(curPat.tracks).length === 0) {
+    handlePresetSelect(toPreset);
+    return;
+  }
+  const snap = JSON.parse(JSON.stringify(curPat.tracks));
+  const toPat = applyPreset(toPreset, { tracks: snap, bars: state.bars }, totalLen);
+  morphState = { fromTracks: snap, toTracks: toPat.tracks, step: 0, maxSteps: 48 };
+  const oldBpm = getBpm();
+  if (oldBpm && oldBpm !== toPreset.bpm) {
+    setBpm(toPreset.bpm);
+  }
+}
+function processMorph() {
+  if (!morphState) return;
+  const s = morphState;
+  if (s.step >= s.maxSteps) { morphState = null; return; }
+  s.step++;
+  const pct = s.step / s.maxSteps;
+  const cur = getPattern();
+  Object.keys(s.fromTracks).forEach((tid) => {
+    const from = s.fromTracks[tid];
+    const to = s.toTracks[tid];
+    if (!cur.tracks[tid]) cur.tracks[tid] = from;
+    if (!to) return;
+    const steps = cur.tracks[tid].steps;
+    const batchSize = Math.max(1, Math.floor(steps.length / s.maxSteps));
+    const startIdx = (s.step - 1) * batchSize;
+    const endIdx = Math.min(startIdx + batchSize, steps.length);
+    for (let i = startIdx; i < endIdx; i++) {
+      if (to.steps[i]) {
+        steps[i].on = to.steps[i].on;
+        if (to.steps[i].note) steps[i].note = to.steps[i].note;
+      }
+    }
+  });
+  refreshActiveCells();
+  if (s.step >= s.maxSteps) {
+    morphState = null;
+    pushHistory(getPattern());
+    toast('Gecis tamamlandi!', 'success');
+  }
 }
 
 function handleUndo() {
@@ -255,7 +312,10 @@ function togglePlay() {
     els.navPlay?.classList.remove('playing');
     clearPlayingHighlight();
   } else {
-    startSequencer((stepIdx) => highlightPlayingStep(stepIdx));
+    startSequencer((stepIdx) => {
+      highlightPlayingStep(stepIdx);
+      processMorph();
+    });
     play();
     state.playing = true;
     els.btnPlay.classList.add('playing');
@@ -731,6 +791,8 @@ function tryRestoreLastSession() {
 async function init() {
   bindElements();
   bootstrapInitialPattern();
+  els.projectName.textContent = state.projectName;
+  els.bpmInput.value = String(state.bpm);
   rebuildAllUI();
   bindEvents();
   tryRestoreLastSession();
