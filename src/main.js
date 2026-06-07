@@ -366,6 +366,41 @@ function bindEvents() {
   els.btnExport.addEventListener('click', () => doExport());
   els.btnMidiExport?.addEventListener('click', () => doMidiExport());
 
+  const memeBtn = $('btn-meme');
+  const memeGenres = [
+    { preset: 'dnb-classic', label: 'Drum n Bass', color: '#ff4d6d' },
+    { preset: 'dubstep-classic', label: 'Dubstep', color: '#fb923c' },
+    { preset: 'house', label: 'House', color: '#22c55e' },
+    { preset: 'trap', label: 'Trap', color: '#facc15' },
+    { preset: 'techno', label: 'Techno', color: '#4dabf7' },
+    { preset: 'hiphop', label: 'Lo-Fi', color: '#a78bfa' }
+  ];
+  let memeIdx = 0;
+  memeBtn?.addEventListener('click', () => {
+    memeIdx = (memeIdx + 1) % memeGenres.length;
+    const g = memeGenres[memeIdx];
+    const preset = PRESETS.find((p) => p.id === g.preset);
+    if (preset) {
+      handlePresetSelect(preset);
+      memeBtn.textContent = 'PGK: ' + g.label;
+      memeBtn.style.borderColor = g.color;
+      memeBtn.style.boxShadow = `0 0 20px ${g.color}44`;
+      memeBtn.classList.remove('clicked');
+      void memeBtn.offsetWidth;
+      memeBtn.classList.add('clicked');
+      setTimeout(() => memeBtn.classList.remove('clicked'), 600);
+    }
+  });
+
+  document.querySelectorAll('.genre-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const genre = btn.dataset.genre;
+      const map = { dnb: 'dnb-classic', dubstep: 'dubstep-classic', house: 'house', trap: 'trap', techno: 'techno', 'lo-fi': 'hiphop' };
+      const preset = PRESETS.find((p) => p.id === map[genre]);
+      if (preset) handlePresetSelect(preset);
+    });
+  });
+
   document.querySelectorAll('[data-close]').forEach((el) => {
     el.addEventListener('click', () => {
       document.querySelectorAll('.modal.open').forEach((m) => m.classList.remove('open'));

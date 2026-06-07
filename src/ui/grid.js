@@ -78,10 +78,14 @@ export function buildSequencerUI(rootEl, onCellChange) {
     }
     cellsContainer.appendChild(cells);
     row.appendChild(cellsContainer);
-    virtualWrap.appendChild(row);
-  });
+  virtualWrap.appendChild(row);
+});
 
   rootEl.appendChild(virtualWrap);
+
+  const playhead = document.createElement('div');
+  playhead.className = 'seq-playhead';
+  rootEl.appendChild(playhead);
 
   bindCellInteractions(rootEl, onCellChange);
   syncRowScroll(rootEl);
@@ -367,7 +371,15 @@ export function highlightPlayingStep(stepIdx) {
   const cells = document.querySelectorAll('.seq-cell.playing');
   cells.forEach((c) => c.classList.remove('playing'));
   const all = document.querySelectorAll(`.seq-cell[data-step="${stepIdx}"]`);
-  all.forEach((c) => c.classList.add('playing'));
+  all.forEach((c) => {
+    c.classList.add('playing');
+    if (c.classList.contains('active')) {
+      c.classList.remove('trigger-flash');
+      void c.offsetWidth;
+      c.classList.add('trigger-flash');
+      setTimeout(() => c.classList.remove('trigger-flash'), 150);
+    }
+  });
   const first = all[0];
   if (first) {
     const container = first.closest('.seq-cells-container');
@@ -381,10 +393,27 @@ export function highlightPlayingStep(stepIdx) {
       }
     }
   }
+  const playhead = document.querySelector('.seq-playhead');
+  if (playhead && first) {
+    const rootEl = first.closest('.sequencer');
+    const wrap = rootEl && rootEl.querySelector('.seq-virtual');
+    if (wrap) {
+      const wrapRect = wrap.getBoundingClientRect();
+      const cellRect = first.getBoundingClientRect();
+      const scrollLeftEl = first.closest('.seq-cells-container');
+      const scrollLeft = scrollLeftEl ? scrollLeftEl.scrollLeft : 0;
+      playhead.style.left = (cellRect.left - wrapRect.left + scrollLeft) + 'px';
+      playhead.style.height = wrap.offsetHeight + 'px';
+      playhead.classList.add('visible');
+    }
+  }
 }
 
 export function clearPlayingHighlight() {
   document.querySelectorAll('.seq-cell.playing').forEach((c) => c.classList.remove('playing'));
+  document.querySelectorAll('.seq-cell.trigger-flash').forEach((c) => c.classList.remove('trigger-flash'));
+  const ph = document.querySelector('.seq-playhead');
+  if (ph) ph.classList.remove('visible');
 }
 
 export function getMutes() { return trackMutes; }
