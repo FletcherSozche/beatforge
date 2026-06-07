@@ -5,6 +5,11 @@ let masterLimiter = null;
 let masterVolume = null;
 let masterAnalyser = null;
 let masterRecorder = null;
+let masterFFT = null;
+
+export function getFFT() {
+  return masterFFT;
+}
 
 export async function startAudio() {
   if (started) return true;
@@ -26,12 +31,13 @@ export function isStarted() {
 }
 
 export function initMasterChain() {
-  if (masterLimiter) return { volume: masterVolume, analyser: masterAnalyser };
+  if (masterLimiter) return { volume: masterVolume, analyser: masterAnalyser, fft: masterFFT };
   masterVolume = new Tone.Volume(-6);
   masterLimiter = new Tone.Limiter(-1);
   masterAnalyser = new Tone.Meter({ smoothing: 0.85 });
-  masterVolume.chain(masterLimiter, masterAnalyser, Tone.getDestination());
-  return { volume: masterVolume, analyser: masterAnalyser };
+  masterFFT = new Tone.FFT({ size: 256, smoothing: 0.8 });
+  masterVolume.chain(masterLimiter, masterAnalyser, masterFFT, Tone.getDestination());
+  return { volume: masterVolume, analyser: masterAnalyser, fft: masterFFT };
 }
 
 export function getMasterInput() {

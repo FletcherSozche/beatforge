@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#02040a"/>
+      <stop offset="50%" stop-color="#0a1024"/>
+      <stop offset="100%" stop-color="#10183a"/>
+    </linearGradient>
+    <linearGradient id="text" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#00f0ff"/>
+      <stop offset="50%" stop-color="#b400ff"/>
+      <stop offset="100%" stop-color="#ff00d4"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+    <pattern id="grid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#00f0ff" stroke-width="0.4" opacity="0.18"/>
+    </pattern>
+  </defs>
+
+  <rect width="1000" height="1000" fill="url(#bg)"/>
+  <rect width="1000" height="1000" fill="url(#grid)"/>
+
+  <g filter="url(#glow)" opacity="0.85"><circle cx="167.7" cy="703.8" r="140.2" fill="#00f0ff" opacity="0.21"/>
+  <circle cx="787.6" cy="310.8" r="137.3" fill="#00f0ff" opacity="0.29"/>
+  <circle cx="761.5" cy="556.8" r="148.1" fill="#b400ff" opacity="0.17"/>
+  <circle cx="851.0" cy="138.2" r="185.7" fill="#b400ff" opacity="0.21"/>
+  <circle cx="93.3" cy="793.3" r="177.7" fill="#00f0ff" opacity="0.18"/>
+  <circle cx="690.7" cy="425.2" r="159.1" fill="#ff00d4" opacity="0.22"/>
+  <line x1="415.6" y1="714.5" x2="463.1" y2="780.5" stroke="#ff00d4" stroke-width="0.8" opacity="0.48"/>
+  <line x1="725.3" y1="328.9" x2="789.4" y2="99.7" stroke="#ff00d4" stroke-width="2.0" opacity="0.64"/>
+  <line x1="865.2" y1="479.2" x2="1097.2" y2="232.0" stroke="#b400ff" stroke-width="1.0" opacity="0.35"/>
+  <line x1="874.8" y1="716.0" x2="779.4" y2="986.4" stroke="#ff00d4" stroke-width="1.0" opacity="0.43"/>
+  <line x1="145.0" y1="162.5" x2="-130.8" y2="269.4" stroke="#00f0ff" stroke-width="1.2" opacity="0.28"/>
+  <line x1="416.7" y1="326.6" x2="422.2" y2="598.4" stroke="#b400ff" stroke-width="2.2" opacity="0.63"/>
+  <line x1="0.2" y1="107.8" x2="213.0" y2="337.2" stroke="#b400ff" stroke-width="2.6" opacity="0.56"/>
+  <line x1="77.2" y1="499.6" x2="-140.3" y2="249.2" stroke="#ff00d4" stroke-width="2.7" opacity="0.60"/>
+  <line x1="544.5" y1="922.3" x2="253.3" y2="1148.7" stroke="#00f0ff" stroke-width="2.7" opacity="0.49"/>
+  <line x1="386.8" y1="59.7" x2="110.9" y2="-202.0" stroke="#00f0ff" stroke-width="1.2" opacity="0.67"/>
+  <line x1="460.0" y1="456.5" x2="309.6" y2="274.8" stroke="#00f0ff" stroke-width="1.5" opacity="0.29"/>
+  <line x1="510.9" y1="198.6" x2="658.0" y2="296.8" stroke="#b400ff" stroke-width="1.1" opacity="0.24"/>
+  <rect x="102.0" y="605.4" width="21.0" height="94.6" fill="#00f0ff" opacity="0.9"/>
+  <rect x="127.0" y="655.9" width="21.0" height="44.1" fill="#00f0ff" opacity="0.9"/>
+  <rect x="152.0" y="642.2" width="21.0" height="57.8" fill="#b400ff" opacity="0.9"/>
+  <rect x="202.0" y="651.3" width="21.0" height="48.7" fill="#ff00d4" opacity="0.9"/>
+  <rect x="227.0" y="662.2" width="21.0" height="37.8" fill="#b400ff" opacity="0.9"/>
+  <rect x="252.0" y="670.4" width="21.0" height="29.6" fill="#ff00d4" opacity="0.9"/>
+  <rect x="352.0" y="654.7" width="21.0" height="45.3" fill="#b400ff" opacity="0.9"/>
+  <rect x="377.0" y="658.1" width="21.0" height="41.9" fill="#00f0ff" opacity="0.9"/>
+  <rect x="402.0" y="644.3" width="21.0" height="55.7" fill="#00f0ff" opacity="0.9"/>
+  <rect x="502.0" y="654.0" width="21.0" height="46.0" fill="#ff00d4" opacity="0.9"/>
+  <rect x="552.0" y="657.7" width="21.0" height="42.3" fill="#ff00d4" opacity="0.9"/>
+  <rect x="577.0" y="667.0" width="21.0" height="33.0" fill="#ff00d4" opacity="0.9"/>
+  <rect x="602.0" y="655.8" width="21.0" height="44.2" fill="#00f0ff" opacity="0.9"/>
+  <rect x="627.0" y="619.0" width="21.0" height="81.0" fill="#00f0ff" opacity="0.9"/>
+  <rect x="702.0" y="647.6" width="21.0" height="52.4" fill="#b400ff" opacity="0.9"/>
+  <rect x="727.0" y="653.2" width="21.0" height="46.8" fill="#ff00d4" opacity="0.9"/>
+  <rect x="777.0" y="666.3" width="21.0" height="33.7" fill="#00f0ff" opacity="0.9"/>
+  <rect x="852.0" y="675.1" width="21.0" height="24.9" fill="#ff00d4" opacity="0.9"/></g>
+
+  <g transform="translate(100, 760)">
+    <text font-family="'Orbitron', monospace" font-size="62" font-weight="900" fill="url(#text)" filter="url(#glow)">NEON PULSE</text>
+  </g>
+  <g transform="translate(100, 830)">
+    <text font-family="'Share Tech Mono', monospace" font-size="28" font-weight="600" fill="#00f0ff" letter-spacing="6">DNB · 174 BPM</text>
+  </g>
+  <g transform="translate(100, 880)">
+    <text font-family="'Share Tech Mono', monospace" font-size="20" font-weight="500" fill="#b400ff" letter-spacing="4" opacity="0.7">BEATFORGE</text>
+  </g>
+</svg>

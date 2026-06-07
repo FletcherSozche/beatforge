@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="BeatForge - Telefonunda tam bir müzik stüdyosu. Drum n Bass, Dubstep, Trap, House, Techno, Hip-Hop. Multi-platform. Bir bira parasi." />
+  <meta property="og:title" content="BeatForge - Music Studio" />
+  <meta property="og:description" content="Cebinde 25 kanalli step sequencer. 10 dakikalik sarkilar yap. Telefon, bilgisayar, tablet — her yerde." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#02040a" />
+  <title>BeatForge - Music Studio in Your Pocket</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-0: #02040a;
+      --bg-1: #060a18;
+      --accent: #00f0ff;
+      --accent-2: #ff00d4;
+      --accent-3: #b400ff;
+      --text-0: #e8f4ff;
+      --text-2: #6a82c5;
+      --grad: linear-gradient(135deg, #00f0ff 0%, #b400ff 50%, #ff00d4 100%);
+    }
+    html, body { background: var(--bg-0); color: var(--text-0); font-family: 'Rajdhani', -apple-system, BlinkMacSystemFont, sans-serif; -webkit-font-smoothing: antialiased; line-height: 1.5; overflow-x: hidden; }
+    body::before {
+      content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        repeating-linear-gradient(0deg, transparent 0, transparent 2px, rgba(0, 240, 255, 0.015) 2px, rgba(0, 240, 255, 0.015) 3px),
+        radial-gradient(ellipse at top, rgba(0, 240, 255, 0.06), transparent 60%),
+        radial-gradient(ellipse at bottom right, rgba(180, 0, 255, 0.06), transparent 60%);
+    }
+    body::after {
+      content: ""; position: fixed; inset: 0; z-index: 9998; pointer-events: none;
+      background: repeating-linear-gradient(0deg, transparent 0, transparent 3px, rgba(0, 240, 255, 0.025) 3px, rgba(0, 240, 255, 0.025) 4px);
+      animation: scan 8s linear infinite;
+    }
+    @keyframes scan { from { background-position: 0 0; } to { background-position: 0 100vh; } }
+
+    .wrap { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; padding: 24px; }
+
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(0, 240, 255, 0.2); margin-bottom: 60px; }
+    .logo { display: flex; align-items: center; gap: 12px; }
+    .logo-mark { width: 36px; height: 36px; clip-path: polygon(20% 0, 100% 0, 80% 100%, 0 100%); background: var(--grad); box-shadow: 0 0 20px rgba(0, 240, 255, 0.6); }
+    .logo-text { font-family: 'Orbitron', monospace; font-weight: 800; font-size: 16px; letter-spacing: 3px; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .nav-links { display: flex; gap: 24px; }
+    .nav-links a { color: var(--text-2); text-decoration: none; font-family: 'Share Tech Mono', monospace; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; transition: 200ms; }
+    .nav-links a:hover { color: var(--accent); text-shadow: 0 0 8px var(--accent); }
+
+    .hero { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; margin-bottom: 100px; }
+    @media (max-width: 880px) { .hero { grid-template-columns: 1fr; gap: 32px; } }
+
+    .tag { display: inline-block; font-family: 'Share Tech Mono', monospace; font-size: 11px; letter-spacing: 3px; color: var(--accent); text-transform: uppercase; padding: 6px 14px; border: 1px solid var(--accent); border-radius: 2px; margin-bottom: 20px; box-shadow: 0 0 12px rgba(0, 240, 255, 0.3); }
+    h1 { font-family: 'Orbitron', monospace; font-size: clamp(36px, 6vw, 72px); font-weight: 900; line-height: 1.05; letter-spacing: -1px; margin-bottom: 24px; }
+    h1 .grad { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.4)); }
+    .lead { font-size: 18px; color: var(--text-2); max-width: 540px; margin-bottom: 32px; }
+    .cta { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 24px; font-family: 'Orbitron', monospace; font-weight: 700; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: 200ms; clip-path: polygon(6% 0, 100% 0, 94% 100%, 0 100%); }
+    .btn-primary { background: var(--grad); color: white; box-shadow: 0 0 24px rgba(0, 240, 255, 0.4); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 32px rgba(0, 240, 255, 0.6); }
+    .btn-ghost { border: 1px solid var(--accent); color: var(--accent); }
+    .btn-ghost:hover { background: rgba(0, 240, 255, 0.1); box-shadow: 0 0 12px rgba(0, 240, 255, 0.3); }
+
+    .mock { aspect-ratio: 1; max-width: 460px; justify-self: center; position: relative; }
+    .mock svg { width: 100%; height: 100%; }
+
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 100px; }
+    .feat { background: rgba(10, 16, 36, 0.6); border: 1px solid rgba(0, 240, 255, 0.2); padding: 24px; border-radius: 2px; position: relative; backdrop-filter: blur(8px); clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px)); }
+    .feat::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: var(--grad); opacity: 0.4; }
+    .feat h3 { font-family: 'Orbitron', monospace; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; color: var(--accent); }
+    .feat p { color: var(--text-2); font-size: 14px; }
+
+    .price { text-align: center; padding: 60px 24px; background: rgba(10, 16, 36, 0.4); border: 1px solid var(--accent); border-radius: 2px; margin-bottom: 60px; position: relative; }
+    .price-tag { font-family: 'Orbitron', monospace; font-size: 64px; font-weight: 900; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .price-sub { font-family: 'Share Tech Mono', monospace; color: var(--text-2); letter-spacing: 2px; margin-top: 8px; }
+
+    footer { text-align: center; padding: 40px 0; border-top: 1px solid rgba(0, 240, 255, 0.2); font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--text-2); letter-spacing: 2px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav>
+      <div class="logo">
+        <div class="logo-mark"></div>
+        <div class="logo-text">BEATFORGE</div>
+      </div>
+      <div class="nav-links">
+        <a href="#features">Ozellikler</a>
+        <a href="#price">Fiyat</a>
+        <a href="/app/">App'i Ac</a>
+        <a href="https://t.me/BeatForgeBot">Telegram</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div>
+        <div class="tag">v0.1.0 · multi-platform</div>
+        <h1>Cebinde <span class="grad">Tam Bir Müzik Stüdyosu</span></h1>
+        <p class="lead">
+          25 kanalli step sequencer. 6 master efekt. Vokal kayit. 10 dakikalik sarkilar.
+          Drum n Bass'tan House'a, Dubstep'ten Trap'a — telefondan yap, masaustune tasi.
+        </p>
+        <div class="cta">
+          <a href="/app/" class="btn btn-primary">HEMEN DENE</a>
+          <a href="#features" class="btn btn-ghost">Ozellikler</a>
+        </div>
+      </div>
+      <div class="mock">
+        <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#00f0ff"/>
+              <stop offset="50%" stop-color="#b400ff"/>
+              <stop offset="100%" stop-color="#ff00d4"/>
+            </linearGradient>
+            <filter id="glow"><feGaussianBlur stdDeviation="4"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <rect width="400" height="400" rx="20" fill="#060a18" stroke="url(#g1)" stroke-width="2"/>
+          <g transform="translate(200,200)" filter="url(#glow)">
+            <circle r="120" fill="none" stroke="url(#g1)" stroke-width="2" opacity="0.4"/>
+            <circle r="80" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.6"/>
+            <path d="M -50 -60 L -50 60 L 60 0 Z" fill="url(#g1)"/>
+          </g>
+          <g font-family="monospace" font-size="11" fill="#00f0ff" filter="url(#glow)">
+            <text x="20" y="30" letter-spacing="3">BEATFORGE</text>
+            <text x="20" y="380" letter-spacing="2" opacity="0.6">v0.1.0</text>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <section id="features" class="features">
+      <div class="feat">
+        <h3>25 Kanal</h3>
+        <p>Kick, sub, snare, tom'lar, hat'ler, ride, crash, wobble, reese, lead, pad, pluck, 3 vokal — tam stüdyo.</p>
+      </div>
+      <div class="feat">
+        <h3>128 Bar</h3>
+        <p>10 dakikaya kadar sarki yap. Virtualized grid binlerce adimi rahatça isler.</p>
+      </div>
+      <div class="feat">
+        <h3>Vokal Kayit</h3>
+        <p>Mikrofonundan sarki soyle, 3 vokal track'e kaydet, pattern'e bagla.</p>
+      </div>
+      <div class="feat">
+        <h3>6 Efekt</h3>
+        <p>Reverb, delay, distortion, filter, phaser, compressor — master zincir.</p>
+      </div>
+      <div class="feat">
+        <h3>Telegram Bot</h3>
+        <p>Telefonundan PC'ye komut gonder. Dogal dil, sesli mesaj, dosya transferi.</p>
+      </div>
+      <div class="feat">
+        <h3>Multi-Platform</h3>
+        <p>Web PWA, iOS, Android, Windows, Mac, Linux — ayni proje, ayni kod.</p>
+      </div>
+      <div class="feat">
+        <h3>Undo/Redo</h3>
+        <p>80 adim geri-ileri. A/B pattern karsilastirma. Auto-save 30sn'de bir.</p>
+      </div>
+      <div class="feat">
+        <h3>WAV Export</h3>
+        <p>Master mix'i tek tikla WAV olarak disari aktar. Diger DAW'lar ile ac.</p>
+      </div>
+    </section>
+
+    <section id="price" class="price">
+      <div class="price-tag">$4.99</div>
+      <div class="price-sub">BIR BIRA PARASI · TEK SEFERLIK · ABONELIK YOK</div>
+    </section>
+
+    <footer>
+      © 2026 BEATFORGE STUDIO · MULTI-PLATFORM MUSIC PRODUCTION
+    </footer>
+  </div>
+</body>
+</html>

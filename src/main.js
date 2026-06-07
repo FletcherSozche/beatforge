@@ -21,6 +21,12 @@ import { buildEffectsUI } from './ui/effects-ui.js';
 import { buildSynthUI } from './ui/synth.js';
 import { buildVocalUI, refreshVocalStatus, getActiveVocalTrackId } from './ui/vocal.js';
 import { buildPresetList, toast } from './ui/presets-ui.js';
+import { buildTemplatesUI } from './ui/templates-ui.js';
+import { mountSpectrum } from './ui/spectrum.js';
+import { pushHistory, debouncedHistory, flushHistory, undo, redo, canUndo, canRedo, clearHistory } from './audio/history.js';
+import { startAutosave, stopAutosave, setAutosaveEnabled } from './audio/autosave.js';
+import { snapshotA, snapshotB, toggleAB, getActiveBuffer, hasA, hasB } from './audio/ab-compare.js';
+import { duplicateBarAllTracks, duplicateBar } from './audio/bar-ops.js';
 
 const state = {
   ready: false,
@@ -50,6 +56,10 @@ function bindElements() {
   els.btnRandomize = $('btn-randomize');
   els.btnCopy = $('btn-copy');
   els.btnPaste = $('btn-paste');
+  els.btnUndo = $('btn-undo');
+  els.btnRedo = $('btn-redo');
+  els.btnAB = $('btn-ab');
+  els.btnDupBar = $('btn-dupbar');
   els.bpmInput = $('bpm-input');
   els.bpmUp = $('bpm-up');
   els.bpmDown = $('bpm-down');
@@ -59,11 +69,13 @@ function bindElements() {
   els.effectsPanel = $('effects-panel');
   els.synthPanel = $('synth-panel');
   els.vocalPanel = $('vocal-panel');
+  els.templatesPanel = $('templates-panel');
   els.presetsList = $('presets-list');
   els.modalPresets = $('modal-presets');
   els.modalMenu = $('modal-menu');
   els.navPlay = $('nav-play');
   els.toastHost = $('toast-host');
+  els.spectrumMount = $('spectrum-mount');
 }
 
 async function ensureAudioStarted() {
@@ -93,7 +105,26 @@ function rebuildAllUI() {
   buildSynthUI(els.synthPanel);
   buildVocalUI(els.vocalPanel);
   buildPresetList(els.presetsList, handlePresetSelect);
+  buildTemplatesUI(els.templatesPanel, handleTemplateApplied);
+  mountSpectrum(els.spectrumMount);
 }
+
+window.beatforgeState = {
+  getPattern,
+  setPattern,
+  getBpm,
+  setBpm,
+  totalSteps
+};
+
+window.addEventListener('beatforge:autosave', (e) => {
+  const stamp = new Date(e.detail.at).toLocaleTimeString();
+  if (els.position) {
+    const original = els.position.textContent;
+    els.position.textContent = `💾 ${stamp}`;
+    setTimeout(() => { if (els.position) els.position.textContent = original; }, 1500);
+  }
+});
 
 function handlePresetSelect(preset) {
   state.bpm = preset.bpm;
@@ -109,9 +140,85 @@ function handlePresetSelect(preset) {
   refreshActiveCells();
   buildSequencerUI(els.sequencer);
   closeModal(els.modalPresets);
+  pushHistory(getPattern());
   toast(`Yuklendi: ${preset.name}`, 'success');
   state.projectName = preset.name;
   els.projectName.textContent = preset.name;
+}
+
+function handleTemplateApplied({ bpm, name }) {
+  state.bpm = bpm;
+  els.bpmInput.value = String(bpm);
+  if (state.ready) setBpm(bpm);
+  refreshActiveCells();
+  buildSequencerUI(els.sequencer);
+  pushHistory(getPattern());
+}
+
+function handleUndo() {
+  const prev = undo();
+  if (prev) {
+    setPattern(prev);
+    refreshActiveCells();
+    buildSequencerUI(els.sequencer);
+    toast('Geri alindi', 'info');
+  }
+}
+
+function handleRedo() {
+  const next = redo();
+  if (next) {
+    setPattern(next);
+    refreshActiveCells();
+    buildSequencerUI(els.sequencer);
+    toast('Ileri alindi', 'info');
+  }
+}
+
+function handleABToggle() {
+  if (getActiveBuffer() === 'A') {
+    if (!hasB()) snapshotB();
+    setPattern(window.beatforgeState.getPattern());
+    const b = snapshotB();
+    if (b) {
+      setPattern(b);
+      refreshActiveCells();
+      buildSequencerUI(els.sequencer);
+      toast('B pattern yuklendi', 'info');
+    }
+  } else {
+    if (!hasA()) snapshotA();
+    const a = snapshotA();
+    if (a) {
+      setPattern(a);
+      refreshActiveCells();
+      buildSequencerUI(els.sequencer);
+      toast('A pattern yuklendi', 'info');
+    }
+  }
+  if (els.btnAB) {
+    els.btnAB.classList.toggle('on', getActiveBuffer() === 'B');
+  }
+}
+
+function handleDuplicateBar() {
+  const bars = state.bars || 1;
+  if (bars < 2) {
+    toast('En az 2 bar olmali', 'warn');
+    return;
+  }
+  const choice = prompt(`Hangi bar hangisine kopyalanacak? (1-${bars})\nFormat: kaynak,hedef (orn: 1,2)`, '1,2');
+  if (!choice) return;
+  const [src, dst] = choice.split(',').map(s => parseInt(s.trim(), 10) - 1);
+  if (isNaN(src) || isNaN(dst) || src < 0 || dst < 0 || src >= bars || dst >= bars) {
+    toast('Gecersiz secim', 'error');
+    return;
+  }
+  duplicateBarAllTracks(src, dst);
+  refreshActiveCells();
+  buildSequencerUI(els.sequencer);
+  pushHistory(getPattern());
+  toast(`Bar ${src + 1} -> Bar ${dst + 1} kopyalandi`, 'success');
 }
 
 function togglePlay() {
@@ -209,14 +316,21 @@ function bindEvents() {
   els.btnClear.addEventListener('click', () => {
     clearPattern();
     refreshActiveCells();
+    pushHistory(getPattern());
     toast('Pattern temizlendi', 'info');
   });
 
   els.btnRandomize.addEventListener('click', () => {
     randomize();
     refreshActiveCells();
+    pushHistory(getPattern());
     toast('Rastgele pattern olusturuldu', 'info');
   });
+
+  if (els.btnUndo) els.btnUndo.addEventListener('click', handleUndo);
+  if (els.btnRedo) els.btnRedo.addEventListener('click', handleRedo);
+  if (els.btnAB) els.btnAB.addEventListener('click', handleABToggle);
+  if (els.btnDupBar) els.btnDupBar.addEventListener('click', handleDuplicateBar);
 
   if (els.btnCopy) {
     els.btnCopy.addEventListener('click', () => {
@@ -241,6 +355,7 @@ function bindEvents() {
       state.bars = bars;
       setBars(bars);
       buildSequencerUI(els.sequencer);
+      pushHistory(getPattern());
     });
   });
 
@@ -289,6 +404,10 @@ function bindEvents() {
     if (handleCopyPasteKey(e, els.sequencer)) {
       return;
     }
+
+    const meta = e.ctrlKey || e.metaKey;
+    if (meta && e.code === 'KeyZ' && !e.shiftKey) { e.preventDefault(); handleUndo(); return; }
+    if (meta && (e.code === 'KeyY' || (e.code === 'KeyZ' && e.shiftKey))) { e.preventDefault(); handleRedo(); return; }
 
     if (e.code === 'Space') { e.preventDefault(); togglePlay(); }
     else if (e.code === 'Escape') { handleStop(); document.querySelectorAll('.modal.open').forEach((m) => m.classList.remove('open')); }
@@ -408,6 +527,14 @@ async function init() {
   startMeters();
   updatePositionLoop();
 
+  clearHistory();
+  pushHistory(getPattern());
+
+  startAutosave(
+    () => state.projectName,
+    () => ({ bpm: state.bpm, bars: state.bars, pattern: getPattern() })
+  );
+
   setTimeout(() => {
     els.splash?.remove();
     els.app?.classList.remove('hidden');
@@ -434,6 +561,7 @@ async function init() {
         bpm: state.bpm, bars: state.bars, pattern: getPattern()
       });
     }
+    flushHistory(getPattern());
   });
 }
 
