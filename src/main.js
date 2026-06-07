@@ -37,6 +37,7 @@ import { showHelpModal } from './ui/help-modal.js';
 import { showOnboarding } from './ui/onboarding.js';
 import { exportPatternToMidi, downloadMidi } from './audio/midi-export.js';
 import { isMetronomeEnabled, setMetronomeEnabled, startMetronome, stopMetronome, startCountIn } from './audio/metronome.js';
+import { exportStems } from './audio/stem-export.js';
 
 const state = {
   ready: false,
@@ -462,6 +463,7 @@ function bindEvents() {
   $('menu-save')?.addEventListener('click', () => { doSave(); closeModal(els.modalMenu); });
   $('menu-export')?.addEventListener('click', () => { doExport(); closeModal(els.modalMenu); });
   $('menu-midi')?.addEventListener('click', () => { doMidiExport(); closeModal(els.modalMenu); });
+  $('menu-stems')?.addEventListener('click', () => { doStemExport(); closeModal(els.modalMenu); });
   $('menu-about')?.addEventListener('click', () => {
     closeModal(els.modalMenu);
     toast('BeatForge v0.1 - © 2026 BeatForge Studio', 'info');
@@ -644,6 +646,36 @@ function doMidiExport() {
   const blob = exportPatternToMidi(getPattern(), state.bpm);
   downloadMidi(blob, `${name}.mid`);
   toast(`MIDI export: ${name}.mid`, 'success');
+}
+
+function doStemExport() {
+  const pattern = getPattern();
+  const activeTracks = Object.keys(pattern.tracks || {}).filter((id) => {
+    const t = pattern.tracks[id];
+    return t?.steps?.some((s) => s && s.on);
+  });
+  if (activeTracks.length === 0) { toast('Aktif track yok', 'error'); return; }
+
+  toast('Stem export basladi — her track ayri WAV olarak inecek...', 'info');
+  exportStems(
+    (progress) => {
+      toast(`${progress.current}/${progress.total}: ${progress.trackId}`, 'info');
+    },
+    (stems) => {
+      if (!stems || stems.length === 0) { toast('Stem export icin aktif nota bulunamadi', 'error'); return; }
+      stems.forEach((stem) => {
+        const url = URL.createObjectURL(stem.blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${state.projectName.replace(/[^a-z0-9-_]/gi, '_')}_${stem.name}.wav`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(url), 3000);
+      });
+      toast(`${stems.length} track WAV olarak export edildi`, 'success');
+    }
+  );
 }
 
 function updatePositionLoop() {
