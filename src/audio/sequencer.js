@@ -1,6 +1,7 @@
 import * as Tone from 'tone';
 import { getInstrument } from './instruments.js';
 import { scheduleRepeat, cancelAllSchedules } from './engine.js';
+import { applySwing } from './swing.js';
 
 let pattern = {
   bars: 1,
@@ -96,8 +97,10 @@ export function startSequencer(callback) {
   if (scheduleId !== null) return;
 
   currentStep = 0;
+  const sixteenth = 60 / Tone.getTransport().bpm.value / 4;
   scheduleId = scheduleRepeat((time) => {
     const step = currentStep % totalSteps();
+    const swungTime = applySwing(currentStep, time, sixteenth);
 
     Object.entries(pattern.tracks).forEach(([trackId, track]) => {
       const cell = track.steps[step];
@@ -109,9 +112,9 @@ export function startSequencer(callback) {
         if (inst.polyphonic !== undefined) {
           const note = cell.note || defaultNoteFor(trackId);
           const dur = cell.dur || '8n';
-          inst.trigger(time, cell.vel, note, dur);
+          inst.trigger(swungTime, cell.vel, note, dur);
         } else {
-          inst.trigger(time, cell.vel);
+          inst.trigger(swungTime, cell.vel);
         }
       } catch (err) {
         console.warn(`Trigger error for ${trackId}:`, err);
@@ -119,7 +122,7 @@ export function startSequencer(callback) {
     });
 
     if (onStepCallback) {
-      Tone.Draw.schedule(() => onStepCallback(step), time);
+      Tone.Draw.schedule(() => onStepCallback(step), swungTime);
     }
     currentStep++;
   }, '16n', 0);

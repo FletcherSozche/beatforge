@@ -1,0 +1,2639 @@
+{
+  "version": 1,
+  "name": "Neon Pulse (Demo DnB)",
+  "savedAt": "2026-06-07T03:30:00.000Z",
+  "project": {
+    "bpm": 174,
+    "bars": 4,
+    "pattern": {
+      "bars": 4,
+      "steps": 16,
+      "tracks": {
+        "kick": {
+          "id": "kick",
+          "name": "Kick",
+          "color": "#ff0066",
+          "icon": "K",
+          "steps": [
+            {
+              "on": true,
+              "vel": 0.95,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.8,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.95,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.8,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.95,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.8,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.95,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.8,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.95,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            }
+          ]
+        },
+        "snare": {
+          "id": "snare",
+          "name": "Snare",
+          "color": "#ff6600",
+          "icon": "S",
+          "steps": [
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.95,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.9,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.95,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.9,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.95,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.9,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.95,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.95,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            }
+          ]
+        },
+        "clap": {
+          "id": "clap",
+          "name": "Clap",
+          "color": "#00ff88",
+          "icon": "C",
+          "steps": [
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.9,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.9,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.9,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.9,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.9,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            }
+          ]
+        },
+        "hat": {
+          "id": "hat",
+          "name": "Hat",
+          "color": "#ffcc00",
+          "icon": "H",
+          "steps": [
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.5,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.4,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.5,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.4,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.5,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.4,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.5,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.4,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.5,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.4,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.5,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.4,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.5,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.4,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.5,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.4,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.5,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.4,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.5,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.4,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.5,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.4,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.5,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.4,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.5,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.4,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.5,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.4,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.5,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.4,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.5,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.4,
+              "note": null
+            }
+          ]
+        },
+        "ohat": {
+          "id": "ohat",
+          "name": "Open Hat",
+          "color": "#ffaa00",
+          "icon": "O",
+          "steps": [
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.6,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.6,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.6,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.6,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.6,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.6,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.6,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.6,
+              "note": null
+            }
+          ]
+        },
+        "sub": {
+          "id": "sub",
+          "name": "Sub",
+          "color": "#aa44ff",
+          "icon": "U",
+          "steps": [
+            {
+              "on": true,
+              "vel": 0.95,
+              "note": "C1"
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.95,
+              "note": "C1"
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.95,
+              "note": "C1"
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.85,
+              "note": "A1"
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.95,
+              "note": "A1"
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.85,
+              "note": "C1"
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            }
+          ]
+        },
+        "bass": {
+          "id": "bass",
+          "name": "Bass",
+          "color": "#b400ff",
+          "icon": "B",
+          "steps": [
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.85,
+              "note": "A1"
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.85,
+              "note": "G1"
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.8,
+              "note": "F1"
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.85,
+              "note": "A1"
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.9,
+              "note": "C2"
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.9,
+              "note": "C2"
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            }
+          ]
+        },
+        "lead": {
+          "id": "lead",
+          "name": "Lead",
+          "color": "#00ffaa",
+          "icon": "L",
+          "steps": [
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.7,
+              "note": "E5"
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.75,
+              "note": "G5"
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.8,
+              "note": "A5"
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": true,
+              "vel": 0.85,
+              "note": "C6"
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            },
+            {
+              "on": false,
+              "vel": 0.85,
+              "note": null
+            }
+          ]
+        }
+      }
+    }
+  }
+}

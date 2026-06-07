@@ -28,6 +28,12 @@ import { startAutosave, stopAutosave, setAutosaveEnabled } from './audio/autosav
 import { snapshotA, snapshotB, toggleAB, getActiveBuffer, hasA, hasB } from './audio/ab-compare.js';
 import { duplicateBarAllTracks, duplicateBar } from './audio/bar-ops.js';
 import { setupProjectWatcher } from './audio/watcher.js';
+import { setupDragDropImport } from './audio/drag-drop.js';
+import { showRecentProjectsModal } from './audio/recent-projects.js';
+import { getSwing, setSwing } from './audio/swing.js';
+import { loadDemoProject, isDemoLoading } from './audio/demo-loader.js';
+import { showHelpModal } from './ui/help-modal.js';
+import { showOnboarding } from './ui/onboarding.js';
 
 const state = {
   ready: false,
@@ -51,6 +57,9 @@ function bindElements() {
   els.btnRec = $('btn-rec');
   els.btnPresets = $('btn-presets');
   els.btnSave = $('btn-save');
+  els.btnOpen = $('btn-open');
+  els.btnDemo = $('btn-demo');
+  els.btnHelp = $('btn-help');
   els.btnExport = $('btn-export');
   els.btnMenu = $('btn-menu');
   els.btnClear = $('btn-clear');
@@ -77,6 +86,9 @@ function bindElements() {
   els.navPlay = $('nav-play');
   els.toastHost = $('toast-host');
   els.spectrumMount = $('spectrum-mount');
+  els.swingSlider = $('swing-slider');
+  els.swingValue = $('swing-value');
+  els.tapTempo = $('tap-tempo');
 }
 
 async function ensureAudioStarted() {
@@ -283,6 +295,31 @@ function changeBpm(delta) {
   if (state.ready) setBpm(newBpm);
 }
 
+const TAP_HISTORY = [];
+const TAP_WINDOW = 3000;
+let tapTimer = null;
+function handleTapTempo() {
+  const now = Date.now();
+  TAP_HISTORY.push(now);
+  if (TAP_HISTORY.length > 1 && (now - TAP_HISTORY[0]) > TAP_WINDOW) {
+    TAP_HISTORY.splice(0, TAP_HISTORY.length - 1);
+  }
+  if (TAP_HISTORY.length >= 3) {
+    const intervals = [];
+    for (let i = 1; i < TAP_HISTORY.length; i++) {
+      intervals.push(TAP_HISTORY[i] - TAP_HISTORY[i - 1]);
+    }
+    const avgMs = intervals.reduce((a, b) => a + b, 0) / intervals.length;
+    const bpm = Math.round(60000 / avgMs);
+    state.bpm = Math.max(40, Math.min(240, bpm));
+    els.bpmInput.value = String(state.bpm);
+    if (state.ready) setBpm(state.bpm);
+  }
+  els.tapTempo.classList.add('flash');
+  clearTimeout(tapTimer);
+  tapTimer = setTimeout(() => els.tapTempo.classList.remove('flash'), 200);
+}
+
 function openModal(modal) { modal.classList.add('open'); }
 function closeModal(modal) { modal.classList.remove('open'); }
 
@@ -306,6 +343,9 @@ function bindEvents() {
   els.btnPresets.addEventListener('click', () => openModal(els.modalPresets));
   els.btnMenu.addEventListener('click', () => openModal(els.modalMenu));
   els.btnSave.addEventListener('click', () => doSave());
+  els.btnOpen.addEventListener('click', () => doOpenRecent());
+  els.btnDemo?.addEventListener('click', () => doLoadDemo());
+  els.btnHelp?.addEventListener('click', () => showHelpModal());
   els.btnExport.addEventListener('click', () => doExport());
 
   document.querySelectorAll('[data-close]').forEach((el) => {
@@ -332,6 +372,15 @@ function bindEvents() {
   if (els.btnRedo) els.btnRedo.addEventListener('click', handleRedo);
   if (els.btnAB) els.btnAB.addEventListener('click', handleABToggle);
   if (els.btnDupBar) els.btnDupBar.addEventListener('click', handleDuplicateBar);
+
+  if (els.swingSlider) {
+    els.swingSlider.addEventListener('input', (e) => {
+      const val = parseInt(e.target.value, 10);
+      setSwing(val / 100);
+      if (els.swingValue) els.swingValue.textContent = val + '%';
+    });
+  }
+  if (els.tapTempo) els.tapTempo.addEventListener('click', handleTapTempo);
 
   if (els.btnCopy) {
     els.btnCopy.addEventListener('click', () => {
@@ -397,6 +446,14 @@ function bindEvents() {
   $('menu-about')?.addEventListener('click', () => {
     closeModal(els.modalMenu);
     toast('BeatForge v0.1 - © 2026 BeatForge Studio', 'info');
+  });
+  $('menu-demo')?.addEventListener('click', () => {
+    closeModal(els.modalMenu);
+    doLoadDemo();
+  });
+  $('menu-help')?.addEventListener('click', () => {
+    closeModal(els.modalMenu);
+    showHelpModal();
   });
 
   document.addEventListener('keydown', (e) => {
@@ -503,6 +560,22 @@ async function doOpen() {
   const data = await importProjectFile();
   if (!data) return;
   loadProjectData(data);
+}
+
+function doOpenRecent() {
+  showRecentProjectsModal(
+    (data) => loadProjectData(data),
+    (name) => toast(`"${name}" silindi`, 'info')
+  );
+}
+
+async function doLoadDemo() {
+  if (isDemoLoading()) return toast('Yukleniyor...', 'info');
+  if (state.playing) { stop(); state.playing = false; els.btnPlay.classList.remove('playing'); }
+  const data = await loadDemoProject();
+  if (!data) return toast('Demo yukleme basarisiz', 'error');
+  loadProjectData(data);
+  toast('Neon Pulse (Demo DnB) yuklendi — 174 BPM', 'success');
 }
 
 function loadProjectData(data) {
@@ -613,6 +686,13 @@ async function init() {
     els.splash?.remove();
     els.app?.classList.remove('hidden');
   }, 1600);
+
+  setupDragDropImport((data, fileName) => {
+    const projName = (data.name || fileName?.replace(/\.bfp$/i, '') || 'Suruklenen Proje');
+    loadProjectData({ ...data, name: projName });
+  }, toast);
+
+  setTimeout(() => showOnboarding(), 2000);
 
   const settings = loadSettings();
   if (settings?.bpm) {
