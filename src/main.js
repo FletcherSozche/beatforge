@@ -4,7 +4,7 @@ import {
   getTransportState, getPosition, startRecording, stopRecording, isRecording,
   setMasterVolumeDb
 } from './audio/engine.js';
-import { initInstruments } from './audio/instruments.js';
+import { initInstruments, VOCAL_TRACK_IDS, getInstrument } from './audio/instruments.js';
 import { initMasterFx } from './audio/effects.js';
 import {
   getPattern, setPattern, setBars, startSequencer, stopSequencer,
@@ -12,8 +12,8 @@ import {
 } from './audio/sequencer.js';
 import { PRESETS, applyPreset } from './audio/presets.js';
 import {
-  saveProject, loadProject, saveSettings, loadSettings,
-  exportProjectFile, importProjectFile, exportAudioBlob
+  saveProject, saveProjectWithVocals, loadProject, saveSettings, loadSettings,
+  exportProjectFile, importProjectFile, exportAudioBlob, restoreVocals
 } from './audio/storage.js';
 import { buildSequencerUI, highlightPlayingStep, clearPlayingHighlight, refreshActiveCells, handleCopyPasteKey, setActiveVocalTrack, clearSelection } from './ui/grid.js';
 import { buildMixerUI, startMeters, stopMeters } from './ui/mixer.js';
@@ -458,13 +458,45 @@ async function doSave() {
   };
 
   if (window.beatforge?.isDesktop && window.beatforge.saveProject) {
-    const res = await window.beatforge.saveProject(JSON.stringify({ name, project: proj }, null, 2));
-    if (res?.ok) toast('Proje kaydedildi', 'success');
+    const enriched = await enrichWithVocals(proj);
+    const res = await window.beatforge.saveProject(JSON.stringify({ name, project: enriched }, null, 2));
+    if (res?.ok) toast('Proje kaydedildi (vokaller dahil)', 'success');
   } else {
-    saveProject(name, proj);
+    const res = await saveProjectWithVocals(name, proj);
+    if (res?.ok) {
+      const mb = (res.size / 1024 / 1024).toFixed(2);
+      toast(`Proje kaydedildi (vokaller dahil, ${mb} MB)`, 'success');
+    } else {
+      toast('Kayit basarisiz: ' + (res?.error || ''), 'error');
+    }
     exportProjectFile(name, proj);
-    toast('Proje kaydedildi (dosya indirildi)', 'success');
   }
+}
+
+async function enrichWithVocals(project) {
+  try {
+    const { audioBufferToBase64Wav } = await import('./audio/wav-encoder.js');
+    const vocals = {};
+    for (const id of VOCAL_TRACK_IDS) {
+      const inst = getInstrument(id);
+      const buf = inst?.node?.buffer;
+      if (buf && inst.hasRecording()) {
+        const b64 = await audioBufferToBase64Wav(buf);
+        vocals[id] = {
+          name: inst.getName?.() || id,
+          duration: buf.duration,
+          sampleRate: buf.sampleRate,
+          channels: buf.numberOfChannels,
+          format: 'wav',
+          data: b64
+        };
+      }
+    }
+    if (Object.keys(vocals).length) return { ...project, vocals };
+  } catch (e) {
+    console.warn('Vokal serialize basarisiz:', e.message);
+  }
+  return project;
 }
 
 async function doOpen() {
@@ -491,7 +523,19 @@ function loadProjectData(data) {
   }
   if (proj.pattern) setPattern(proj.pattern);
   buildSequencerUI(els.sequencer);
-  toast(`Yuklendi: ${name}`, 'success');
+
+  if (proj.vocals && Object.keys(proj.vocals).length) {
+    restoreVocals(proj).then((n) => {
+      if (n > 0) {
+        refreshVocalStatus();
+        toast(`Yuklendi: ${name} (${n} vokal)`, 'success');
+      } else {
+        toast(`Yuklendi: ${name}`, 'success');
+      }
+    });
+  } else {
+    toast(`Yuklendi: ${name}`, 'success');
+  }
 }
 
 async function doExport() {
@@ -555,6 +599,11 @@ async function init() {
       if (proj.pattern) setPattern(proj.pattern);
       refreshActiveCells();
       buildSequencerUI(els.sequencer);
+      if (proj.vocals && Object.keys(proj.vocals).length) {
+        restoreVocals(proj).then((n) => {
+          if (n > 0) refreshVocalStatus();
+        });
+      }
       toast('Bot senkron: Proje guncellendi', 'info');
     });
     console.log('[BeatForge] Bot sync izleyicisi aktif:', watchPath);
@@ -582,7 +631,7 @@ async function init() {
   window.addEventListener('beforeunload', () => {
     saveSettings({ bpm: state.bpm });
     if (state.projectName !== 'Yeni Proje') {
-      saveProject(state.projectName, {
+      saveProjectWithVocals(state.projectName, {
         bpm: state.bpm, bars: state.bars, pattern: getPattern()
       });
     }
