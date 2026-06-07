@@ -97,10 +97,17 @@
           </div>
           <div class="panel-actions">
             <div class="seg">
-              <button class="seg-btn active" data-bars="1">1 Bar</button>
-              <button class="seg-btn" data-bars="2">2 Bar</button>
-              <button class="seg-btn" data-bars="4">4 Bar</button>
+              <button class="seg-btn active" data-bars="1">1</button>
+              <button class="seg-btn" data-bars="2">2</button>
+              <button class="seg-btn" data-bars="4">4</button>
+              <button class="seg-btn" data-bars="8">8</button>
+              <button class="seg-btn" data-bars="16">16</button>
+              <button class="seg-btn" data-bars="32">32</button>
+              <button class="seg-btn" data-bars="64">64</button>
+              <button class="seg-btn" data-bars="128">128</button>
             </div>
+            <button class="btn-mini" id="btn-copy" title="Secili hucreleri kopyala (Ctrl+C)">Kopyala</button>
+            <button class="btn-mini" id="btn-paste" title="Yapistir (Ctrl+V)">Yapistir</button>
             <button class="btn-mini" id="btn-clear" title="Pattern Temizle">Temizle</button>
             <button class="btn-mini" id="btn-randomize" title="Rastgele">Rastgele</button>
           </div>
@@ -114,12 +121,14 @@
           <button class="tab active" data-tab="mixer">Mixer</button>
           <button class="tab" data-tab="effects">Efektler</button>
           <button class="tab" data-tab="synth">Synth</button>
+          <button class="tab" data-tab="vocal">Vokal</button>
           <button class="tab" data-tab="arrange">Arrange</button>
         </div>
 
         <div class="tab-panel active" data-panel="mixer" id="mixer-panel"></div>
         <div class="tab-panel" data-panel="effects" id="effects-panel"></div>
         <div class="tab-panel" data-panel="synth" id="synth-panel"></div>
+        <div class="tab-panel" data-panel="vocal" id="vocal-panel"></div>
         <div class="tab-panel" data-panel="arrange" id="arrange-panel">
           <div class="arrange-info">
             <h3>Song Arrange</h3>

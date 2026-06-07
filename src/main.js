@@ -15,10 +15,11 @@ import {
   saveProject, loadProject, saveSettings, loadSettings,
   exportProjectFile, importProjectFile, exportAudioBlob
 } from './audio/storage.js';
-import { buildSequencerUI, highlightPlayingStep, clearPlayingHighlight, refreshActiveCells } from './ui/grid.js';
+import { buildSequencerUI, highlightPlayingStep, clearPlayingHighlight, refreshActiveCells, handleCopyPasteKey, setActiveVocalTrack, clearSelection } from './ui/grid.js';
 import { buildMixerUI, startMeters, stopMeters } from './ui/mixer.js';
 import { buildEffectsUI } from './ui/effects-ui.js';
 import { buildSynthUI } from './ui/synth.js';
+import { buildVocalUI, refreshVocalStatus, getActiveVocalTrackId } from './ui/vocal.js';
 import { buildPresetList, toast } from './ui/presets-ui.js';
 
 const state = {
@@ -47,6 +48,8 @@ function bindElements() {
   els.btnMenu = $('btn-menu');
   els.btnClear = $('btn-clear');
   els.btnRandomize = $('btn-randomize');
+  els.btnCopy = $('btn-copy');
+  els.btnPaste = $('btn-paste');
   els.bpmInput = $('bpm-input');
   els.bpmUp = $('bpm-up');
   els.bpmDown = $('bpm-down');
@@ -55,6 +58,7 @@ function bindElements() {
   els.mixerPanel = $('mixer-panel');
   els.effectsPanel = $('effects-panel');
   els.synthPanel = $('synth-panel');
+  els.vocalPanel = $('vocal-panel');
   els.presetsList = $('presets-list');
   els.modalPresets = $('modal-presets');
   els.modalMenu = $('modal-menu');
@@ -87,6 +91,7 @@ function rebuildAllUI() {
   buildMixerUI(els.mixerPanel);
   buildEffectsUI(els.effectsPanel);
   buildSynthUI(els.synthPanel);
+  buildVocalUI(els.vocalPanel);
   buildPresetList(els.presetsList, handlePresetSelect);
 }
 
@@ -213,6 +218,21 @@ function bindEvents() {
     toast('Rastgele pattern olusturuldu', 'info');
   });
 
+  if (els.btnCopy) {
+    els.btnCopy.addEventListener('click', () => {
+      const fakeEvent = { key: 'c', ctrlKey: true, metaKey: true, preventDefault: () => {} };
+      handleCopyPasteKey(fakeEvent, els.sequencer);
+      toast('Kopyalandi', 'success');
+    });
+  }
+  if (els.btnPaste) {
+    els.btnPaste.addEventListener('click', () => {
+      const fakeEvent = { key: 'v', ctrlKey: true, metaKey: true, preventDefault: () => {} };
+      handleCopyPasteKey(fakeEvent, els.sequencer);
+      toast('Yapistirildi', 'success');
+    });
+  }
+
   document.querySelectorAll('.seg-btn[data-bars]').forEach((btn) => {
     btn.addEventListener('click', () => {
       const bars = parseInt(btn.dataset.bars, 10);
@@ -265,6 +285,11 @@ function bindEvents() {
 
   document.addEventListener('keydown', (e) => {
     if (e.target.tagName === 'INPUT') return;
+
+    if (handleCopyPasteKey(e, els.sequencer)) {
+      return;
+    }
+
     if (e.code === 'Space') { e.preventDefault(); togglePlay(); }
     else if (e.code === 'Escape') { handleStop(); document.querySelectorAll('.modal.open').forEach((m) => m.classList.remove('open')); }
     else if (e.code === 'KeyR' && !e.ctrlKey && !e.metaKey) { handleRecord(); }
