@@ -35,6 +35,7 @@ import { getSwing, setSwing } from './audio/swing.js';
 import { loadDemoProject, isDemoLoading } from './audio/demo-loader.js';
 import { showHelpModal } from './ui/help-modal.js';
 import { showOnboarding } from './ui/onboarding.js';
+import { exportPatternToMidi, downloadMidi } from './audio/midi-export.js';
 
 const state = {
   ready: false,
@@ -62,6 +63,7 @@ function bindElements() {
   els.btnDemo = $('btn-demo');
   els.btnHelp = $('btn-help');
   els.btnExport = $('btn-export');
+  els.btnMidiExport = $('btn-midi-export');
   els.btnMenu = $('btn-menu');
   els.btnClear = $('btn-clear');
   els.btnRandomize = $('btn-randomize');
@@ -350,6 +352,7 @@ function bindEvents() {
   els.btnDemo?.addEventListener('click', () => doLoadDemo());
   els.btnHelp?.addEventListener('click', () => showHelpModal());
   els.btnExport.addEventListener('click', () => doExport());
+  els.btnMidiExport?.addEventListener('click', () => doMidiExport());
 
   document.querySelectorAll('[data-close]').forEach((el) => {
     el.addEventListener('click', () => {
@@ -446,6 +449,7 @@ function bindEvents() {
   $('menu-open')?.addEventListener('click', () => { doOpen(); closeModal(els.modalMenu); });
   $('menu-save')?.addEventListener('click', () => { doSave(); closeModal(els.modalMenu); });
   $('menu-export')?.addEventListener('click', () => { doExport(); closeModal(els.modalMenu); });
+  $('menu-midi')?.addEventListener('click', () => { doMidiExport(); closeModal(els.modalMenu); });
   $('menu-about')?.addEventListener('click', () => {
     closeModal(els.modalMenu);
     toast('BeatForge v0.1 - © 2026 BeatForge Studio', 'info');
@@ -618,6 +622,13 @@ async function doExport() {
   await ensureAudioStarted();
   toast('Disa aktarim icin Rec dugmesine basin, oynatin, sonra tekrar Rec.', 'info');
   if (!isRecording()) handleRecord();
+}
+
+function doMidiExport() {
+  const name = state.projectName.replace(/[^a-z0-9-_]/gi, '_') || 'beatforge-export';
+  const blob = exportPatternToMidi(getPattern(), state.bpm);
+  downloadMidi(blob, `${name}.mid`);
+  toast(`MIDI export: ${name}.mid`, 'success');
 }
 
 function updatePositionLoop() {
