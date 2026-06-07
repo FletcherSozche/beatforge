@@ -367,22 +367,18 @@ function bindEvents() {
   els.btnMidiExport?.addEventListener('click', () => doMidiExport());
 
   const memeBtn = $('btn-meme');
-  const memeGenres = [
-    { preset: 'dnb-classic', label: 'Drum n Bass', color: '#ff4d6d' },
-    { preset: 'dubstep-classic', label: 'Dubstep', color: '#fb923c' },
-    { preset: 'house', label: 'House', color: '#22c55e' },
-    { preset: 'trap', label: 'Trap', color: '#facc15' },
-    { preset: 'techno', label: 'Techno', color: '#4dabf7' },
-    { preset: 'hiphop', label: 'Lo-Fi', color: '#a78bfa' }
+  const memeStates = [
+    { preset: 'progressive', label: 'Progresif', color: '#22d3ee' },
+    { preset: 'goa', label: 'Goa Trance', color: '#c084fc' }
   ];
   let memeIdx = 0;
   memeBtn?.addEventListener('click', () => {
-    memeIdx = (memeIdx + 1) % memeGenres.length;
-    const g = memeGenres[memeIdx];
+    memeIdx = (memeIdx + 1) % memeStates.length;
+    const g = memeStates[memeIdx];
     const preset = PRESETS.find((p) => p.id === g.preset);
     if (preset) {
       handlePresetSelect(preset);
-      memeBtn.textContent = 'PGK: ' + g.label;
+      memeBtn.textContent = g.label;
       memeBtn.style.borderColor = g.color;
       memeBtn.style.boxShadow = `0 0 20px ${g.color}44`;
       memeBtn.classList.remove('clicked');
