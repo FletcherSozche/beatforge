@@ -4,9 +4,85 @@ Drum n Bass, Dubstep ve daha fazlasi icin tasarlanmis sezgisel mobil + masaustu 
 
 ## Hakkinda
 
-BeatForge klasik "diger" beat maker'larin aksine **"ac, calma yap"** felsefesiyle cikar. DnB, Dubstep, Trap, House, Techno, Boom Bap tarz onayarlari, profesyonel 16 adimli step sequencer, 10+ sentezleyici kanal ve 6 stüdyo kalitesinde efekt ile anlik uretim yapmanizi saglar.
+BeatForge klasik "diger" beat maker'larin aksine **"ac, calma yap"** felsefesiyle cikar. DnB, Dubstep, Trap, House, Techno, Boom Bap tarz onayarlari, profesyonel 16 adimli step sequencer, **25 sentezleyici kanal**, **6 stüdyo kalitesinde efekt**, vokal kayit, 128 bara kadar uzun sarkilar ve **Telegram bot ile uzaktan kontrol** ile anlik uretim yapmanizi saglar.
 
-> **Fiyat Prensibi:** "Bir bira parasi" - Tek seferlik satin alma, abonelik yok, icki reklam yok.
+> **Fiyat Prensibi:** "Bir bira parasi" - Tek seferlik satin alma, abonelik yok, gizli reklam yok.
+
+## Ozellikler (v0.1.0)
+
+### Editor
+- 25 kanal step sequencer (kick, sub, snare, clap, tomlar, ride, crash, hat, ohat, shaker, wobble, reese, lead, pad, pluck, 3 vokal)
+- 1/2/4/8/16/32/64/128 bar secenekleri (10 dakikaya kadar)
+- Per-beat velocity (gorsel + drag ile ayarlama)
+- Drag-paint, shift-select, Ctrl+A/C/V, sag tik menusu
+- 128 bar'a kadar virtualized grid (DOM performans)
+
+### Ses
+- 6 master efekt: Reverb, Delay, Distortion, Filter, Phaser, Compressor
+- Per-channel mixer (vol/pan/mute/solo/meter)
+- Synth: nota secimi + LFO wobble
+- Vokal kayit (3 track, getUserMedia + MediaRecorder)
+- Spectrum analyzer (FFT 256, 32 bantli)
+
+### Sablonlar
+- 8 tarz (DnB, Neurofunk, Dubstep, Riddim, Trap, House, Techno, Hip-Hop)
+- 12 ek pattern template (Amen, Think, Liquid Funk, Breakcore vs.)
+- Demo proje: `projects/neon-pulse-demo.bfp`
+
+### Verimlilik
+- Undo/Redo (80 adim gecmis)
+- Auto-save (30 saniyede bir)
+- A/B pattern karsilastirma
+- Bar kopyalama (tek tıkla intro→drop)
+- Klavye kisayollari (Space, Ctrl+Z/Y, Ctrl+S/N/O/E)
+
+### Dis Aktarma & Paylasim
+- WAV export (master mix)
+- .bfp proje dosyasi (JSON, insan-okunabilir)
+- Telegram bot ile PC kontrolu (Whisper sesli komut)
+- Bot senkron (Electron): bot yazarsa BeatForge otomatik reload
+
+## Mimari
+
+```
+beatforge/
+├── src/                    Web app (Vite + vanilla JS)
+│   ├── main.js             Bootstrap ve genel durum
+│   ├── audio/              Tone.js ses motoru
+│   │   ├── engine.js       Transport, master chain, recorder, FFT
+│   │   ├── instruments.js  25 kanal sentzleyici
+│   │   ├── effects.js      Master FX chain
+│   │   ├── sequencer.js    Pattern playback
+│   │   ├── presets.js      8 tarz onayari
+│   │   ├── templates.js    12 ek pattern
+│   │   ├── history.js      Undo/Redo
+│   │   ├── autosave.js     Otomatik kayit
+│   │   ├── ab-compare.js   A/B karsilastirma
+│   │   ├── bar-ops.js      Bar kopyalama
+│   │   ├── vocal.js        Vokal ses motoru
+│   │   ├── storage.js      Save/Load/Export
+│   │   └── watcher.js      Bot sync dosya izleyici
+│   ├── ui/                 UI komponentleri
+│   │   ├── grid.js         Virtualized sequencer
+│   │   ├── mixer.js        Kanal kontrolleri
+│   │   ├── effects-ui.js   Efekt kartlari
+│   │   ├── synth.js        Synth panel
+│   │   ├── vocal.js        Vokal UI
+│   │   ├── templates-ui.js Sablon grid
+│   │   ├── spectrum.js     Spectrum canvas
+│   │   ├── knob.js         Surukle knob
+│   │   └── presets-ui.js   Tarz onayari
+│   └── styles/main.css     Sci-fi tema (Orbitron, neon, scanlines)
+├── electron/               Desktop wrapper (Windows/Mac/Linux)
+├── public/icons/           PWA ikonlari (22 boyut)
+├── public/marketing.html   Landing page
+├── store-assets/           PlayStore + AppStore + track-art
+├── docs/                   Kullanici kilavuzu, launch checklist
+├── projects/               Demo .bfp dosyalari
+├── scripts/                Build, icon, art uretecleri
+├── .github/workflows/      CI/CD (build + release)
+└── capacitor.config.ts     iOS/Android ayarlari
+```
 
 ## Mimari
 
@@ -194,7 +270,30 @@ npm run electron:dev
 
 # Capacitor
 npm run android:dev  # veya ios:dev
+
+# Tum platform build (release)
+node scripts/build-all.js --mobile
 ```
+
+## Belgeler
+
+- `docs/USER-MANUAL.md` - Kullanici kilavuzu (TR)
+- `docs/LAUNCH-CHECKLIST.md` - 8 fazli launch plani
+- `docs/store-listings.md` - App Store / Play Store metinleri
+- `projects/neon-pulse-demo.bfp` - Demo proje (DnB, 4 bar)
+
+## Telegram Bot
+
+Ayrı repo: `D:\AI\OpenCode\beatforge-bot\`
+
+- `@BotFather`'dan token al
+- `npm install && npm run setup` (interaktif kurulum)
+- `npm start` (polling modu)
+- Veya VPS + webhook (production)
+
+Detay: `beatforge-bot/README.md`
+- Android ornek: `beatforge-bot/examples/android-conversation.md`
+- iOS ornek: `beatforge-bot/examples/apple-conversation.md`
 
 ## Mimari Detaylari
 
