@@ -20,6 +20,7 @@ import { buildMixerUI, startMeters, stopMeters } from './ui/mixer.js';
 import { buildEffectsUI } from './ui/effects-ui.js';
 import { buildSynthUI } from './ui/synth.js';
 import { buildVocalUI, refreshVocalStatus, getActiveVocalTrackId } from './ui/vocal.js';
+import { buildSamplesUI } from './ui/samples-ui.js';
 import { buildPresetList, toast } from './ui/presets-ui.js';
 import { buildTemplatesUI } from './ui/templates-ui.js';
 import { mountSpectrum } from './ui/spectrum.js';
@@ -79,6 +80,7 @@ function bindElements() {
   els.effectsPanel = $('effects-panel');
   els.synthPanel = $('synth-panel');
   els.vocalPanel = $('vocal-panel');
+  els.samplesPanel = $('samples-panel');
   els.templatesPanel = $('templates-panel');
   els.presetsList = $('presets-list');
   els.modalPresets = $('modal-presets');
@@ -117,6 +119,7 @@ function rebuildAllUI() {
   buildEffectsUI(els.effectsPanel);
   buildSynthUI(els.synthPanel);
   buildVocalUI(els.vocalPanel);
+  buildSamplesUI(els.samplesPanel);
   buildPresetList(els.presetsList, handlePresetSelect);
   buildTemplatesUI(els.templatesPanel, handleTemplateApplied);
   mountSpectrum(els.spectrumMount);

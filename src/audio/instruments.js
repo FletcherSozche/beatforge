@@ -1,5 +1,6 @@
 import * as Tone from 'tone';
 import { getMasterInput } from './engine.js';
+import { hasSample, getSample, triggerSample, assignSample, clearSample } from './samples.js';
 
 export const TRACK_DEFS = [
   { id: 'kick',     name: 'Kick',       icon: 'K', color: '#ff4d6d', type: 'drum',   cssVar: '--kick' },
@@ -330,11 +331,35 @@ function buildInstrument(def) {
   }
 }
 
+export const VOCAL_TRACK_IDS = ['vocal1', 'vocal2', 'vocal3'];
+export const DRUM_TRACK_IDS = TRACK_DEFS.filter((d) => d.type === 'drum' || d.type === 'fx').map((d) => d.id);
+
+function wrapWithSample(inst, def) {
+  const origTrigger = inst.trigger;
+  const ch = getChannel(def.id).channel;
+  inst.trigger = function (time, vel, note, dur) {
+    if (hasSample(def.id)) {
+      triggerSample(def.id, time, typeof vel === 'number' ? vel : 1, ch);
+      return;
+    }
+    origTrigger(time, vel, note, dur);
+  };
+  inst.hasSample = () => hasSample(def.id);
+  inst.getSample = () => getSample(def.id);
+  inst.setSample = (buffer, name) => assignSample(def.id, buffer, name);
+  inst.clearSample = () => clearSample(def.id);
+  inst.sampleable = true;
+  return inst;
+}
+
 export function initInstruments() {
   TRACK_DEFS.forEach((def) => {
     if (!instruments.has(def.id)) {
       const inst = buildInstrument(def);
-      if (inst) instruments.set(def.id, inst);
+      if (inst) {
+        if (def.type !== 'vocal') wrapWithSample(inst, def);
+        instruments.set(def.id, inst);
+      }
     }
   });
   return instruments;
@@ -343,7 +368,13 @@ export function initInstruments() {
 export function getInstrument(trackId) {
   if (!instruments.has(trackId)) {
     const def = TRACK_DEFS.find((d) => d.id === trackId);
-    if (def) instruments.set(trackId, buildInstrument(def));
+    if (def) {
+      const inst = buildInstrument(def);
+      if (inst) {
+        if (def.type !== 'vocal') wrapWithSample(inst, def);
+        instruments.set(trackId, inst);
+      }
+    }
   }
   return instruments.get(trackId);
 }
@@ -360,7 +391,6 @@ export function getTrackLevel(trackId) {
   return typeof v === 'number' ? v : v[0] || -Infinity;
 }
 
-export const VOCAL_TRACK_IDS = ['vocal1', 'vocal2', 'vocal3'];
 export function getVocalTracks() {
   return VOCAL_TRACK_IDS.map((id) => {
     const def = TRACK_DEFS.find((d) => d.id === id);
