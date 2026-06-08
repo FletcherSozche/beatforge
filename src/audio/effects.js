@@ -1,5 +1,5 @@
 import * as Tone from 'tone';
-import { getMasterInput } from './engine.js';
+import { getMasterInput, getMasterChainTail } from './engine.js';
 
 const FX_DEFS = [
   { id: 'reverb',     name: 'Reverb',     defaults: { decay: 2.5, wet: 0.3 } },
@@ -11,6 +11,7 @@ const FX_DEFS = [
 ];
 
 let masterFx = null;
+let fxParams = {};
 
 export function getFxDefinitions() {
   return FX_DEFS;
@@ -32,6 +33,10 @@ export function initMasterFx() {
     filter: false, phaser: false, compressor: false
   };
 
+  FX_DEFS.forEach(fx => {
+    fxParams[fx.id] = { ...fx.defaults };
+  });
+
   masterFx.reverb.generate?.();
 
   const master = getMasterInput();
@@ -43,7 +48,7 @@ export function initMasterFx() {
     masterFx.delay,
     masterFx.reverb,
     masterFx.compressor,
-    Tone.getDestination()
+    getMasterChainTail()
   );
 
   return masterFx;
@@ -53,17 +58,21 @@ export function setFxEnabled(id, enabled) {
   if (!masterFx || !masterFx[id]) return;
   masterFx.enabled[id] = enabled;
   if (id === 'filter') {
-    masterFx.filter.frequency.rampTo(enabled ? 1200 : 20000, 0.1);
+    const targetFreq = enabled ? (fxParams.filter?.frequency || 1200) : 20000;
+    masterFx.filter.frequency.rampTo(targetFreq, 0.1);
   } else if (id === 'compressor') {
-    masterFx.compressor.threshold.value = enabled ? -18 : 0;
+    const targetThreshold = enabled ? (fxParams.compressor?.threshold || -18) : 0;
+    masterFx.compressor.threshold.value = targetThreshold;
   } else if (typeof masterFx[id].wet?.rampTo === 'function') {
-    const target = enabled ? (id === 'reverb' ? 0.3 : id === 'delay' ? 0.25 : 0.5) : 0;
+    const target = enabled ? (fxParams[id]?.wet ?? 0.3) : 0;
     masterFx[id].wet.rampTo(target, 0.1);
   }
 }
 
 export function setFxParam(id, param, value) {
   if (!masterFx || !masterFx[id]) return;
+  if (!fxParams[id]) fxParams[id] = {};
+  fxParams[id][param] = value;
   const node = masterFx[id];
   if (param === 'wet' && node.wet) node.wet.rampTo(value, 0.05);
   else if (param === 'frequency' && node.frequency) node.frequency.rampTo(value, 0.05);

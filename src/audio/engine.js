@@ -126,4 +126,9 @@ export function isRecording() {
   return masterRecorder !== null;
 }
 
+export function getMasterChainTail() {
+  if (!masterLimiter) initMasterChain();
+  return masterLimiter;
+}
+
 export { Tone };
