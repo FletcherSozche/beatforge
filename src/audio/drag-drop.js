@@ -1,7 +1,15 @@
+import { TRACK_DEFS, getInstrument } from './instruments.js';
+import { loadSampleFromFile } from './samples.js';
+import { buildSamplesUI } from '../ui/samples-ui.js';
+
 let dropOverlay = null;
 let isOver = false;
 let onLoadCallback = null;
 let toastFn = null;
+
+function showToast(msg, type) {
+  if (toastFn) toastFn(msg, type);
+}
 
 export function setupDragDropImport(onLoad, toast) {
   onLoadCallback = onLoad;
@@ -34,18 +42,38 @@ export function setupDragDropImport(onLoad, toast) {
     e.preventDefault();
     isOver = false;
     dropOverlay.classList.remove('active');
-    const file = Array.from(e.dataTransfer.files).find((f) => /\.bfp$|\.json$/i.test(f.name));
-    if (!file) {
-      if (toastFn) toastFn('Sadece .bfp veya .json dosyalari destekleniyor', 'error');
-      return;
-    }
-    try {
-      const text = await file.text();
-      const data = JSON.parse(text);
-      if (onLoadCallback) onLoadCallback(data, file.name);
-    } catch (err) {
-      console.error('Drop import failed', err);
-      if (toastFn) toastFn('Dosya okunamadi: ' + err.message, 'error');
+    const files = Array.from(e.dataTransfer.files);
+    const projFile = files.find((f) => /\.bfp$|\.json$/i.test(f.name));
+    const audioFile = files.find((f) => /\.(wav|mp3|ogg|aiff?|flac)$/i.test(f.name));
+
+    if (projFile) {
+      try {
+        const text = await projFile.text();
+        const data = JSON.parse(text);
+        if (onLoadCallback) onLoadCallback(data, projFile.name);
+      } catch (err) {
+        showToast('Dosya okunamadi: ' + err.message, 'error');
+      }
+    } else if (audioFile) {
+      const trackEl = e.target.closest('[data-track-id]');
+      const trackId = trackEl?.dataset?.trackId;
+      const targetTrack = trackId && TRACK_DEFS.find((d) => d.id === trackId && d.type !== 'vocal');
+      if (targetTrack) {
+        try {
+          const result = await loadSampleFromFile(audioFile);
+          const inst = getInstrument(targetTrack.id);
+          if (inst?.setSample) inst.setSample(result.buffer, result.name);
+          showToast(`${audioFile.name} -> ${targetTrack.name}`, 'success');
+          const panel = document.getElementById('samples-panel');
+          if (panel) buildSamplesUI(panel);
+        } catch (err) {
+          showToast('Ses yuklenemedi: ' + err.message, 'error');
+        }
+      } else {
+        showToast('Ses dosyasini bir track uzerine birak.', 'info');
+      }
+    } else {
+      showToast('Sadece .bfp/.json (proje) veya .wav/.mp3 (sample) desteklenir', 'error');
     }
   });
 }
@@ -70,8 +98,8 @@ function ensureOverlay() {
         <path d="M32 8 L52 22 L52 50 L12 50 L12 22 Z" fill="none" stroke="url(#dg)" stroke-width="2.5" stroke-linejoin="round"/>
         <path d="M32 26 L32 42 M22 32 L32 42 L42 32" fill="none" stroke="url(#dg)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
-      <h2>BeatForge projesi yukle</h2>
-      <p>Dosyayi birak — desen, BPM, vokaller hazir</p>
+      <h2>Dosyayi birak</h2>
+      <p>.bfp/.json (proje) veya .wav/.mp3 (sample)</p>
     </div>
   `;
   document.body.appendChild(dropOverlay);
