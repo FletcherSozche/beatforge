@@ -21,6 +21,7 @@ import { buildEffectsUI } from './ui/effects-ui.js';
 import { buildSynthUI } from './ui/synth.js';
 import { buildVocalUI, refreshVocalStatus, getActiveVocalTrackId } from './ui/vocal.js';
 import { buildSamplesUI } from './ui/samples-ui.js';
+import { buildArrangeUI } from './ui/arrange-ui.js';
 import { buildPresetList, toast } from './ui/presets-ui.js';
 import { buildTemplatesUI } from './ui/templates-ui.js';
 import { mountSpectrum } from './ui/spectrum.js';
@@ -136,6 +137,7 @@ function rebuildAllUI() {
   buildSynthUI(els.synthPanel);
   buildVocalUI(els.vocalPanel);
   buildSamplesUI(els.samplesPanel);
+  buildArrangeUI(els.arrangePanel);
   buildPresetList(els.presetsList, handlePresetSelect);
   buildTemplatesUI(els.templatesPanel, handleTemplateApplied);
   mountSpectrum(els.spectrumMount);
