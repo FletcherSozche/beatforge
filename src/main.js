@@ -553,6 +553,7 @@ function bindEvents() {
   $('menu-new')?.addEventListener('click', () => { newProject(); closeModal(els.modalMenu); });
   $('menu-open')?.addEventListener('click', () => { doOpen(); closeModal(els.modalMenu); });
   $('menu-save')?.addEventListener('click', () => { doSave(); closeModal(els.modalMenu); });
+  $('menu-export-file')?.addEventListener('click', () => { doExportFile(); closeModal(els.modalMenu); });
   $('menu-export')?.addEventListener('click', () => { doExport(); closeModal(els.modalMenu); });
   $('menu-midi')?.addEventListener('click', () => { doMidiExport(); closeModal(els.modalMenu); });
   $('menu-stems')?.addEventListener('click', () => { doStemExport(); closeModal(els.modalMenu); });
@@ -642,7 +643,6 @@ async function doSave() {
     } else {
       toast('Kayit basarisiz: ' + (res?.error || ''), 'error');
     }
-    exportProjectFile(name, proj);
   }
 }
 
@@ -725,6 +725,13 @@ function loadProjectData(data) {
   } else {
     toast(`Yuklendi: ${name}`, 'success');
   }
+}
+
+function doExportFile() {
+  const name = prompt('Proje adi:', state.projectName) || state.projectName;
+  const proj = { bpm: state.bpm, bars: state.bars, pattern: getPattern() };
+  exportProjectFile(name, proj);
+  toast(`"${name}.bfp" dosyasi indiriliyor`, 'info');
 }
 
 async function doExport() {
