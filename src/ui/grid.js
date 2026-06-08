@@ -103,11 +103,13 @@ function calculateCellSize(totalSteps) {
 }
 
 function bindCellInteractions(rootEl, onCellChange) {
-  let mouseDown = false;
+  let pointerDown = false;
   let paintMode = null;
   let dragStart = null;
   let velDrag = null;
   let lastX = 0, lastY = 0;
+  let longPressTimer = null;
+  let movedSinceDown = false;
 
   const getCellFromEvent = (e) => {
     const target = e.target.closest('.seq-cell');
@@ -119,25 +121,22 @@ function bindCellInteractions(rootEl, onCellChange) {
     };
   };
 
-  rootEl.addEventListener('mousedown', (e) => {
-    if (e.button === 2) return;
-    const c = getCellFromEvent(e);
+  function onPointerDown(clientX, clientY, isTouch) {
+    const el = document.elementFromPoint(clientX, clientY);
+    const c = getCellFromEvent({ target: el });
     if (!c) return;
-
-    if (e.altKey && c.el.classList.contains('active')) {
-      velDrag = { trackId: c.trackId, step: c.step, startY: e.clientY, startVel: getVel(c.trackId, c.step) };
-      e.preventDefault();
-      return;
+    movedSinceDown = false;
+    if (isTouch && c.el.classList.contains('active')) {
+      longPressTimer = setTimeout(() => {
+        if (!movedSinceDown) showContextMenu(clientX, clientY, c, onCellChange, rootEl);
+        longPressTimer = null;
+      }, 500);
     }
+    if (isTouch ? false : false) {} // alt+vel only for mouse
+    mouseDownLogic(c, clientY);
+  }
 
-    if (e.shiftKey && selectionStart) {
-      selectionEnd = { trackId: c.trackId, step: c.step };
-      mouseDown = true;
-      updateSelection();
-      return;
-    }
-
-    mouseDown = true;
+  function mouseDownLogic(c, clientY) {
     const wasActive = c.el.classList.contains('active');
     paintMode = wasActive ? 'erase' : 'paint';
     dragStart = { trackId: c.trackId, step: c.step };
@@ -145,7 +144,50 @@ function bindCellInteractions(rootEl, onCellChange) {
     selectionEnd = { trackId: c.trackId, step: c.step };
     updateSelection();
     paintCell(c.trackId, c.step, paintMode, onCellChange);
-    lastX = e.clientX; lastY = e.clientY;
+    lastX = 0; lastY = clientY;
+  }
+
+  function onPointerMove(clientX, clientY) {
+    if (Math.abs(clientY - lastY) > 5 || Math.abs(clientX - lastX) > 5) movedSinceDown = true;
+    if (velDrag) {
+      const deltaY = velDrag.startY - clientY;
+      const newVel = Math.max(0.05, Math.min(1, velDrag.startVel + deltaY / 80));
+      setVel(velDrag.trackId, velDrag.step, newVel);
+      return;
+    }
+    if (!pointerDown) return;
+    const el = document.elementFromPoint(clientX, clientY);
+    const c = getCellFromEvent({ target: el });
+    if (!c) return;
+    selectionEnd = { trackId: c.trackId, step: c.step };
+    updateSelection();
+    paintCell(c.trackId, c.step, paintMode, onCellChange);
+  }
+
+  function onPointerUp() {
+    if (longPressTimer) { clearTimeout(longPressTimer); longPressTimer = null; }
+    pointerDown = false;
+    paintMode = null;
+    velDrag = null;
+  }
+
+  rootEl.addEventListener('mousedown', (e) => {
+    if (e.button === 2) return;
+    const c = getCellFromEvent(e);
+    if (!c) return;
+    if (e.altKey && c.el.classList.contains('active')) {
+      velDrag = { trackId: c.trackId, step: c.step, startY: e.clientY, startVel: getVel(c.trackId, c.step) };
+      e.preventDefault();
+      return;
+    }
+    if (e.shiftKey && selectionStart) {
+      selectionEnd = { trackId: c.trackId, step: c.step };
+      pointerDown = true;
+      updateSelection();
+      return;
+    }
+    pointerDown = true;
+    mouseDownLogic(c, e.clientY);
   });
 
   rootEl.addEventListener('mousemove', (e) => {
@@ -155,24 +197,32 @@ function bindCellInteractions(rootEl, onCellChange) {
       setVel(velDrag.trackId, velDrag.step, newVel);
       return;
     }
-    if (!mouseDown) return;
+    if (!pointerDown) return;
     const c = getCellFromEvent(e);
     if (!c) return;
-    if (e.shiftKey && dragStart) {
-      selectionEnd = { trackId: c.trackId, step: c.step };
-      updateSelection();
-    } else {
-      selectionEnd = { trackId: c.trackId, step: c.step };
-      updateSelection();
-      paintCell(c.trackId, c.step, paintMode, onCellChange);
-    }
+    selectionEnd = { trackId: c.trackId, step: c.step };
+    updateSelection();
+    paintCell(c.trackId, c.step, paintMode, onCellChange);
   });
 
   document.addEventListener('mouseup', () => {
-    mouseDown = false;
-    paintMode = null;
-    velDrag = null;
+    onPointerUp();
   });
+
+  rootEl.addEventListener('touchstart', (e) => {
+    const t = e.changedTouches[0];
+    pointerDown = true;
+    onPointerDown(t.clientX, t.clientY, true);
+  }, { passive: true });
+
+  rootEl.addEventListener('touchmove', (e) => {
+    const t = e.changedTouches[0];
+    onPointerMove(t.clientX, t.clientY);
+  }, { passive: true });
+
+  rootEl.addEventListener('touchend', (e) => {
+    onPointerUp();
+  }, { passive: true });
 
   rootEl.addEventListener('contextmenu', (e) => {
     e.preventDefault();

@@ -611,6 +611,14 @@ input { outline: none; }
   user-select: none;
   -webkit-user-select: none;
   overflow: hidden;
+  touch-action: none;
+}
+@media (hover: none) and (pointer: coarse) {
+  .seq-cell { height: 36px; min-width: 28px; }
+  .btn-icon { width: 44px; height: 44px; }
+  .genre-btn { padding: 6px 10px; font-size: 10px; }
+  .seq-row { grid-template-columns: 40px 28px 1fr; }
+  .seq-label .label-name { display: none; }
 }
 .seq-cell::before {
   content: "";
