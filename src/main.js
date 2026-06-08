@@ -118,6 +118,7 @@ function bootstrapInitialPattern() {
   if (prog) {
     state.bpm = prog.bpm;
     state.bars = prog.bars || 1;
+    setPattern({ bars: state.bars });
     ['kick', 'snare', 'clap', 'hat', 'ohat', 'crash', 'sub', 'wobble', 'bass', 'lead', 'pad', 'arp'].forEach(ensureTrack);
     const pat = applyPreset(prog, getPattern(), totalSteps());
     setPattern(pat);

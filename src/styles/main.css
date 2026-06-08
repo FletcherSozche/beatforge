@@ -1898,3 +1898,20 @@ input { outline: none; }
   0% { box-shadow: 0 0 20px rgba(107, 207, 127, 0.9); }
   100% { box-shadow: 0 0 0 transparent; }
 }
+
+@media (max-width: 768px) {
+  .brand-text { display: none; }
+  .topbar { gap: 8px; padding: 0 8px; }
+  .transport { gap: 2px; }
+  .bpm-control { padding: 0 4px; }
+  .seq-row { grid-template-columns: 48px 28px 1fr; gap: 4px; }
+  .seq-label .label-name { display: none; }
+  .seq-label { font-size: 10px; padding: 4px; min-height: 32px; justify-content: center; }
+  .seq-label .label-icon { width: 16px; height: 16px; font-size: 9px; }
+  .seq-mute { width: 28px; height: 32px; font-size: 9px; }
+  .seq-cell { height: 32px; }
+  .genre-btns { gap: 4px; }
+  .genre-btn { font-size: 9px; padding: 4px 8px; }
+  .brand { gap: 6px; }
+  .brand-mark { width: 32px; height: 32px; }
+}
